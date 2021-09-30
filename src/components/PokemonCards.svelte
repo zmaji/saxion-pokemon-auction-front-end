@@ -2,8 +2,6 @@
     import { fade } from 'svelte/transition';
     import PokemonCard from "./PokemonCard.svelte";
 
-
-
     const fetchCards = (async () => {
         const response = await fetch('http://localhost:3000/pokemon-cards');
         return await response.json();

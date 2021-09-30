@@ -2,8 +2,8 @@
 	import List from "./components/List.svelte";
 	import Nav from "./components/Nav.svelte";
 	import PokemonCards from "./components/PokemonCards.svelte";
-	import LoginModal from "./components/LoginModal.svelte";
 	import SearchMenu from "./components/SearchMenu.svelte";
+	import Footer from "./components/Footer.svelte";
 
 	let appList = [];
 	let userInput = "";
@@ -17,10 +17,10 @@
 </script>
 
 <svelte:head>
+	<title>Pokemon cards auction</title>
 	<link rel="stylesheet" href="/css/main.css">
 	<link rel="stylesheet" href="/fontawesome/css/all.css">
 	<script src="/js/bootstrap.min.js" defer></script>
-
 </svelte:head>
 
 <main class="bg-light pt-5">
@@ -35,9 +35,11 @@
 	<SearchMenu/>
 	<PokemonCards/>
 </section>
-<LoginModal/>
 
 </main>
+
+<Footer/>
+
 
 <style>
 	:global(body) {
