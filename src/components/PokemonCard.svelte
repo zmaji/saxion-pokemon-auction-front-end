@@ -3,10 +3,10 @@
 </script>
 
 <div class="col-12 col-md-6 col-lg-4 p-3">
-    <div class="bg-white rounded border border-primary">
-        <div class="d-flex justify-content-center py-2 position-relative">
-            <div class="position-absolute end-0 me-2 z-index-1">
-                <div class="d-flex flex-column bg-light rounded py-2 px-1 shadow-sm">
+    <div class="bg-white rounded border border-primary pokecard">
+        <div class="d-flex justify-content-center py-2 position-relative bg-light pokecard-img">
+            <div class="position-absolute end-0 me-2 pokecard-actions">
+                <div class="d-flex flex-column bg-white rounded py-2 px-1 shadow-sm">
                     <button type="button" class="btn btn-primary text-white mb-2"><i class="fas fa-eye"></i></button>
                     <button type="button" class="btn btn-secondary text-white mb-2"><i class="fas fa-edit"></i></button>
                     <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -27,14 +27,54 @@
 </div>
 
 <style>
+    .pokecard:hover .pokecard-actions {
+        opacity: 1;
+        top: 0.5rem;
+    }
+
+    .pokecard-img {
+        background-image: url('/img/pattern-cut.png');
+        background-repeat: repeat;
+    }
+
+    .pokecard-actions {
+        transition: top 300ms ease, opacity 300ms ease;
+        top: 1rem;
+        opacity: 0;
+        z-index: 1;
+    }
+
+    .pokecard-actions .btn:hover i {
+        animation: 300ms ease wiggle-icon;
+        animation-iteration-count: 1;
+    }
+
+    @keyframes wiggle-icon {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        25% {
+            transform: rotate(45deg);
+        }
+
+        50% {
+            transform: rotate(0deg);
+        }
+
+        75% {
+            transform: rotate(-45deg);
+        }
+
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+
     img {
         height: 300px;
         width: 100%;
         object-fit: contain;
         filter: drop-shadow(0 2px 4px rgba(0,0,0,0.24));
-    }
-
-    .z-index-1 {
-        z-index: 1;
     }
 </style>
