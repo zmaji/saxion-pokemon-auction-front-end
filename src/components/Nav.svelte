@@ -1,8 +1,4 @@
-<script>
-    import Button from "./Button.svelte";
-</script>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-top border-4 border-warning shadow">
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-top border-4 border-primary shadow">
     <div class="container">
         <a class="navbar-brand" href="#">PokemonCardAuction</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,11 +15,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Users</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
-                </li>
             </ul>
-            <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-whatever="@mdo">Login</button>
+            <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">Login <i class="fas fa-sign-in-alt"></i></button>
         </div>
     </div>
 </nav>

@@ -1,19 +1,22 @@
 <script>
+    import { fade } from 'svelte/transition';
     import PokemonCard from "./PokemonCard.svelte";
 
+
+
     const fetchCards = (async () => {
-        const response = await fetch('http://localhost:3000/pokemon-cards')
-        return await response.json()
-    })()
+        const response = await fetch('http://localhost:3000/pokemon-cards');
+        return await response.json();
+    })();
 
 </script>
 
 {#await fetchCards}
-    <div class="alert alert-warning" role="alert">
+    <div class="alert alert-primary" role="alert">
         Fetching Cards...
     </div>
 {:then cards}
-    <div class="row">
+    <div class="row" transition:fade>
         {#each cards as card}
             <PokemonCard {card}/>
         {/each}

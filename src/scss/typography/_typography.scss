@@ -1,0 +1,12 @@
+h1, h2, h3, h4, h6 {
+  font-weight: $font-weight-bold;
+}
+
+p {
+  max-width: 75ch;
+  white-space: pre-line;
+}
+
+.fw-semi-bold {
+ font-weight: 500;
+}
