@@ -18,7 +18,7 @@
     <div class="row" transition:fade>
         {#each cards as card}
             <PokemonCard {card}/>
-<!--            <Bids {card}/>-->
+            <Bids {card}/>
         {/each}
     </div>
 {:catch error}
