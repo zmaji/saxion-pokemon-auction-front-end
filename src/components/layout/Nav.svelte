@@ -1,5 +1,5 @@
 <script>
-    import LoginModal from "./LoginModal.svelte";
+    import LoginModal from "../LoginModal.svelte";
 
     let token = localStorage.getItem("token");
     let user = localStorage.getItem("user");

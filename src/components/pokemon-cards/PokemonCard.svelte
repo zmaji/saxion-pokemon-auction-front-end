@@ -22,7 +22,6 @@
                 <small class="text-muted">Available until: {card.availabilityDate} <i class="far fa-calendar-alt"></i></small>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -32,9 +31,15 @@
         top: 0.5rem;
     }
 
+    .pokecard:hover img {
+        transform: rotateX(0) scale(1);
+        filter: drop-shadow(4px 4px 2px rgba(0,0,0,0.24));
+    }
+
     .pokecard-img {
         background-image: url('/img/pattern-cut.png');
         background-repeat: repeat;
+        perspective: 900px;
     }
 
     .pokecard-actions {
@@ -76,5 +81,8 @@
         width: 100%;
         object-fit: contain;
         filter: drop-shadow(0 2px 4px rgba(0,0,0,0.24));
+        transition: .3s transform ease, .3s filter ease;
+        transform: rotateX(20deg) rotateZ(10deg) scale(0.9);
+        perspective: 900px;
     }
 </style>

@@ -1,9 +1,9 @@
 <script>
 	import List from "./components/List.svelte";
-	import Nav from "./components/Nav.svelte";
-	import PokemonCards from "./components/PokemonCards.svelte";
+	import Nav from "./components/layout/Nav.svelte";
+	import PokemonCards from "./components/pokemon-cards/PokemonCards.svelte";
 	import SearchMenu from "./components/SearchMenu.svelte";
-	import Footer from "./components/Footer.svelte";
+	import Footer from "./components/layout/Footer.svelte";
 
 	let appList = [];
 	let userInput = "";

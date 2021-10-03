@@ -1,5 +1,5 @@
 <script>
-    let userName = "";
+    let userEmail = "";
     let userPassword = "";
     let loggedIn = null;
 
@@ -10,7 +10,7 @@
                 'Content-type' : 'application/json'
             },
             body: JSON.stringify({
-                email: userName,
+                email: userEmail,
                 password: userPassword
             })
         }).then(response => {
@@ -19,7 +19,7 @@
                     .then(json => {
                         if (json.token) {
                             localStorage.setItem("token", json.token);
-                            localStorage.setItem("user", userName);
+                            localStorage.setItem("user", userEmail);
                             return loggedIn = true;
                         } else {
                             return loggedIn = false;
@@ -32,7 +32,6 @@
     }
 </script>
 
-
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -43,8 +42,8 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="username" class="col-form-label">Username:</label>
-                        <input type="text" class="form-control" id="username" bind:value={userName}>
+                        <label for="user-email" class="col-form-label">E-mail:</label>
+                        <input type="text" class="form-control" id="user-email" bind:value={userEmail}>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="col-form-label">Password:</label>

@@ -1,28 +1,29 @@
 <script>
-    import Bid from "./Bid.svelte";
     import { fade } from 'svelte/transition';
+    import PokemonCard from "./PokemonCard.svelte";
+    import Bids from "../bids/Bids.svelte";
 
-    export let card = {};
-
-    const fetchCardBids = (async () => {
-        const response = await fetch(`http://localhost:3000/pokemon-cards/${card.cardID}/bids`);
+    const fetchCards = (async () => {
+        const response = await fetch('http://localhost:3000/pokemon-cards');
         return await response.json();
     })();
+
 </script>
 
-{#await fetchCardBids}
+{#await fetchCards}
     <div class="alert alert-primary" role="alert">
-        Fetching Bids...
+        Fetching Cards...
     </div>
-{:then bids}
+{:then cards}
     <div class="row" transition:fade>
-        {#each bids as bid}
-            <Bid {bid}/>
+        {#each cards as card}
+            <PokemonCard {card}/>
+            <Bids {card}/>
         {/each}
     </div>
 {:catch error}
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        Failed to fetch Bids...
+        Failed to fetch Cards...
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 {/await}
