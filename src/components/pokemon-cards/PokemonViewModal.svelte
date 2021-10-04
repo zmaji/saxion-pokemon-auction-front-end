@@ -26,7 +26,7 @@
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Display the result in the element with id="demo"
+        // Display the result in the element with id="CountdownTimer"
         document.getElementById("CountdownTimer").innerHTML = days + "d " + hours + "h "
             + minutes + "m " + seconds + "s ";
 
@@ -36,12 +36,27 @@
             document.getElementById("CountdownTimer").innerHTML = "EXPIRED";
         }
     }, 1000);
+
+    export let bid = {};
+
+    const fetchBidOwner = (async () => {
+        console.log('Bearer ' + localStorage.getItem('token'))
+        const response = await fetch(`http://localhost:3000/users/${bid.userID}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+        return await response.json();
+    })();
 </script>
 
 <div class="row">
     <div class="col-12">
         <h3>Pikachu</h3>
-    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
     <hr>
     <div class="col-12 col-md-6">
         <img src="https://den-cards.pokellector.com/119/Pikachu.BS.58.png" alt="Pikachu">
@@ -82,7 +97,27 @@
         <!--            </div>-->
         <!--        </div>-->
     </div>
-
+    <h3 class="pt-2 ps-3">Bids:</h3>
+    <div class="col-12 px-3 py-2">
+        <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3 mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">€ test</h4>
+                <small class="">Placed by: test</small>
+            </div>
+        </div>
+        <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3 mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">€ test</h4>
+                <small class="">Placed by: test</small>
+            </div>
+        </div>
+        <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">€ test</h4>
+                <small class="">Placed by: test</small>
+            </div>
+        </div>
+    </div>
     <hr>
     <div class="col-12">
         <!-- If (loggedIn && admin) statement -->
