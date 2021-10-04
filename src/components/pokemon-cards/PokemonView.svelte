@@ -55,8 +55,7 @@
 <div class="row">
     <div class="col-12">
         <h3>Pikachu</h3>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+    </div>
     <hr>
     <div class="col-12 col-md-6">
         <img src="https://den-cards.pokellector.com/119/Pikachu.BS.58.png" alt="Pikachu">
@@ -98,19 +97,23 @@
         <!--        </div>-->
     </div>
     <h3 class="pt-2 ps-3">Bids:</h3>
-    <div class="col-12 px-3 py-2">
+    <div class="col-12 col-md-6 px-3 py-2">
         <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3 mb-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">€ test</h4>
                 <small class="">Placed by: test</small>
             </div>
         </div>
+    </div>
+    <div class="col-12 col-md-6 px-3 py-2">
         <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3 mb-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">€ test</h4>
                 <small class="">Placed by: test</small>
             </div>
         </div>
+    </div>
+    <div class="col-12 col-md-6 px-3 py-2">
         <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">€ test</h4>
