@@ -1,7 +1,6 @@
 <script>
     import { fade } from 'svelte/transition';
-    import PokemonCard from "./PokemonCard.svelte";
-    import Bids from "../bids/Bids.svelte";
+    import PokemonCard from "../components/pokemon-cards/PokemonCard.svelte";
 
     const fetchCards = (async () => {
         const response = await fetch('http://localhost:3000/pokemon-cards');
@@ -18,7 +17,6 @@
     <div class="row" transition:fade>
         {#each cards as card}
             <PokemonCard {card}/>
-            <Bids {card}/>
         {/each}
     </div>
 {:catch error}

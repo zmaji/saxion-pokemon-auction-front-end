@@ -1,44 +1,45 @@
 <script>
-	import List from "./components/List.svelte";
-	import Nav from "./components/layout/Nav.svelte";
-	import PokemonCards from "./components/pokemon-cards/PokemonCards.svelte";
-	import SearchMenu from "./components/SearchMenu.svelte";
-	import Footer from "./components/layout/Footer.svelte";
+    import router from "page";
+    import Home from "./pages/Home.svelte";
+    import Pokemon from "./pages/PokemonCards.svelte";
+    import Users from "./pages/Users.svelte";
+    import PokemonView from "./components/pokemon-cards/PokemonView.svelte";
+    import Login from "./pages/Login.svelte";
 
-	let appList = [];
-	let userInput = "";
+    // Middleware
+    import isLoggedIn from "./middleware/isLoggedIn";
 
-	const addItem = () => {
-		if (userInput.length > 0) {
-			appList = [...appList, userInput]
-			userInput = "";
-		}
-	}
+    // Layout components
+    import Nav from "./components/layout/Nav.svelte";
+    import Footer from "./components/layout/Footer.svelte";
+
+    let page;
+    let params;
+
+    router('/', isLoggedIn, (ctx) => page = Home);
+    router('/pokemon-cards', (ctx) => page = Pokemon);
+    router('/pokemon-cards/:id', (ctx) => {
+        params = ctx.params;
+        page = PokemonView;
+    });
+    router('/users', (ctx) => page = Users);
+    router('/login', (ctx) => page = Login);
+
+    router.start();
 </script>
 
 <svelte:head>
-	<title>Pokemon cards auction</title>
-	<link rel="stylesheet" href="/css/main.css">
-	<link rel="stylesheet" href="/fontawesome/css/all.css">
-	<script src="/js/bootstrap.min.js" defer></script>
+    <title>Pokemon cards auction</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/fontawesome/css/all.css">
+    <script src="/js/bootstrap.min.js" defer></script>
 </svelte:head>
 
 <Nav/>
-<main class="bg-light py-5">
-	<section class="container py-5 px-2 px-md-5 mt-5 bg-white rounded shadow-sm">
-		<input bind:value={userInput} type="text" placeholder="Enter text">
-		<button on:click={addItem}>Add item</button>
-		<List list="{appList}"/>
-		<h1 class="text-dark">All available pokemon cards</h1>
-		<hr>
-		<SearchMenu/>
-		<PokemonCards/>
-	</section>
+
+<main class="bg-light py-5 min-vh-100">
+    <section class="container py-5 px-2 px-md-5 mt-5 bg-white rounded shadow-sm">
+        <svelte:component this="{page}" {params}/>
+    </section>
 </main>
 <Footer/>
-
-<style>
-	:global(body) {
-		padding: 0;
-	}
-</style>

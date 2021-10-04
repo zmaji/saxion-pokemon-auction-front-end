@@ -1,0 +1,1 @@
+<h1>The pokemon card auction homepage</h1>

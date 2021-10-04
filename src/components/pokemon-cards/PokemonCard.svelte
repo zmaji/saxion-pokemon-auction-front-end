@@ -1,6 +1,5 @@
 <script>
-    import PokemonView from "./PokemonView.svelte";
-
+    import router from "page";
     export let card = {};
 </script>
 
@@ -9,7 +8,7 @@
         <div class="d-flex justify-content-center py-2 position-relative bg-light pokecard-img">
             <div class="position-absolute end-0 me-2 pokecard-actions">
                 <div class="d-flex flex-column bg-white rounded py-2 px-1 shadow-sm">
-                    <button type="button" class="btn btn-primary text-white mb-2" data-bs-toggle="modal" data-bs-target="#viewModal"><i class="fas fa-eye"></i></button>
+                    <button type="button" class="btn btn-primary text-white mb-2" on:click={() => router.redirect(`/pokemon-cards/${card.cardID}`)}><i class="fas fa-eye"></i></button>
                     <button type="button" class="btn btn-secondary text-white mb-2"><i class="fas fa-edit"></i></button>
                     <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </div>
@@ -26,8 +25,6 @@
         </div>
     </div>
 </div>
-
-<PokemonView></PokemonView>
 
 <style>
     .pokecard:hover .pokecard-actions {
