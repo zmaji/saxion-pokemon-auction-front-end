@@ -100,8 +100,8 @@
             </div>
             <div class="modal-footer">
                 <!-- If (loggedIn && admin) statement -->
-                <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Edit <i class="fas fa-times"></i></button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete <i class="fas fa-times"></i></button>
+                <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Edit <i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete <i class="fas fa-trash-alt"></i></button>
                 <!-- Endif -->
 
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close <i class="fas fa-times"></i></button>
