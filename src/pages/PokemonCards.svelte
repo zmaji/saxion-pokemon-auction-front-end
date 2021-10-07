@@ -1,10 +1,14 @@
 <script>
     import { fade } from 'svelte/transition';
     import PokemonCard from "../components/pokemon-cards/PokemonCard.svelte";
+    import auctionStore from "../stores/auctions";
 
     const fetchCards = (async () => {
         const response = await fetch('http://localhost:3000/pokemon-cards');
-        return await response.json();
+        const result = await response.json();
+        $auctionStore.auctions = result;
+
+        return result;
     })();
 
 </script>

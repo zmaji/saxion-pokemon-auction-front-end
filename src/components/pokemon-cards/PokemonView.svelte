@@ -1,20 +1,28 @@
 <script>
     import router from "page";
     import {onMount} from "svelte";
+    import auctionsStore from "../../stores/auctions";
     export let card = {};
 
     export let params;
     let cardId;
 
     onMount(() => {
-        cardId = params.id;
+        cardId = parseInt(params.id);
+        let items = $auctionsStore.auctions;
+        console.log(items);
+        let item = items.find(card => card.cardID === cardId);
+        console.log(item);
+        startTimer;
     });
+
+    let timer = "";
 
     // Set the date we're counting down to
     let countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
 
     // Update the count down every 1 second
-    let x = setInterval(function () {
+    let startTimer = setInterval(function () {
 
         // Get today's date and time
         let now = new Date().getTime();
@@ -29,13 +37,13 @@
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Display the result in the element with id="CountdownTimer"
-        document.getElementById("CountdownTimer").innerHTML = days + "d " + hours + "h "
+        timer = days + "d " + hours + "h "
             + minutes + "m " + seconds + "s ";
 
         // If the count down is finished, write some text
         if (distance < 0) {
             clearInterval(x);
-            document.getElementById("CountdownTimer").innerHTML = "EXPIRED";
+            timer = "EXPIRED";
         }
     }, 1000);
 
@@ -79,7 +87,7 @@
             <h6>Available until: Date</h6>
             <div class="d-flex align-items-center">
                 <i class="fas fa-hourglass-half pe-2"></i>
-                <p class="mb-0" id="CountdownTimer"></p>
+                <p class="mb-0" id="CountdownTimer">{timer}</p>
             </div>
         </div>
 
