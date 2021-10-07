@@ -1,5 +1,7 @@
 <script>
+    import router from "page";
     import {onMount} from "svelte";
+    export let card = {};
 
     export let params;
     let cardId;
@@ -96,7 +98,15 @@
         <!--            </div>-->
         <!--        </div>-->
     </div>
-    <h3 class="pt-2 ps-3">Bids:</h3>
+    <div class="col-12 col-md-6 mb-3">
+        <h3>Place bid:</h3>
+        <div class=" input-group">
+            <input type="text" class="form-control" placeholder="Bid amount" id="bid-amount">
+            <button type="submit" class="btn btn-success text-white">Place bid</button>
+
+        </div>
+    </div>
+    <h3 class="pt-2 ps-3">Current bids:</h3>
     <div class="col-12 col-md-6 px-3 py-2">
         <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3 mb-3">
             <div class="d-flex justify-content-between align-items-center">
@@ -122,16 +132,18 @@
         </div>
     </div>
     <hr>
-    <div class="col-12">
-        <!-- If (loggedIn && admin) statement -->
-        <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Edit <i
-                class="fas fa-times"></i></button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete <i class="fas fa-times"></i>
-        </button>
-        <!-- Endif -->
+    <div class="col-12 d-flex justify-content-between">
+        <div class="text-start">
+            <!-- If (loggedIn && admin) statement -->
+            <button type="button" class="btn btn-primary text-white me-2" on:click={() => router.redirect(`/pokemon-cards/${card.cardID}/edit`)}>Edit <i class="fas fa-times"></i></button>
+            <button type="button" class="btn btn-danger">Delete <i class="fas fa-times"></i></button>
+        </div>
 
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close <i class="fas fa-times"></i>
+        <!-- Endif -->
+        <div class="text-end">
+            <button type="button" class="btn btn-secondary " on:click={() => router.redirect('/pokemon-cards')}>Return <i class="fas fa-times"></i>
         </button>
+        </div>
     </div>
 </div>
 
