@@ -14,7 +14,14 @@
     // Layout components
     import Nav from "./components/layout/Nav.svelte";
     import Footer from "./components/layout/Footer.svelte";
+    import tokenStore from "./stores/token";
 
+    let localToken = localStorage.getItem("token");
+    if (localToken && localToken.length) {
+        $tokenStore.token = localToken;
+    } else {
+        $tokenStore.token = "";
+    }
 
     let page;
     let params;
