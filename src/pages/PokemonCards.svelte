@@ -2,6 +2,7 @@
     import { fade } from 'svelte/transition';
     import PokemonCard from "../components/pokemon-cards/PokemonCard.svelte";
     import auctionStore from "../stores/auctions";
+    import router from "page";
 
     const fetchCards = (async () => {
         const response = await fetch('http://localhost:3000/pokemon-cards');
@@ -12,6 +13,8 @@
     })();
 
 </script>
+
+<button class="btn btn-primary text-white" on:click="{() => router.redirect('/pokemon-cards/create')}">Add auction</button>
 
 {#await fetchCards}
     <div class="alert alert-primary" role="alert">

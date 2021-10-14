@@ -6,6 +6,7 @@
     import PokemonView from "./components/pokemon-cards/PokemonView.svelte";
     import Login from "./pages/Login.svelte";
     import PokemonEdit from "./pages/PokemonEdit.svelte";
+    import PokemonCreate from "./pages/PokemonCreate.svelte";
 
     // Middleware
     import isLoggedIn from "./middleware/isLoggedIn";
@@ -20,7 +21,7 @@
 
     router('/', isLoggedIn, (ctx) => page = Home);
     router('/pokemon-cards', (ctx) => page = Pokemon);
-    router('/pokemon-cards/create', (ctx) => page = Pokemon);
+    router('/pokemon-cards/create', (ctx) => page = PokemonCreate);
     router('/pokemon-cards/:id', (ctx) => {
         params = ctx.params;
         page = PokemonView;
