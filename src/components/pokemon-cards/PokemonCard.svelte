@@ -1,6 +1,7 @@
 <script>
     import router from "page";
     export let card = {};
+    // console.log(card.image)
 </script>
 
 <div class="col-12 col-md-6 col-lg-4 p-3">
@@ -13,7 +14,10 @@
                     <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </div>
             </div>
-            <img src="{card.imageURL}" alt="{card.name}">
+            {#if card.image}
+
+                <img src="http://localhost:3000/uploads/{card.image}" alt="{card.name}">
+            {/if}
         </div>
         <div class="p-3 alert-primary border-top border-4 border-primary">
             <h3>{card.name}</h3>

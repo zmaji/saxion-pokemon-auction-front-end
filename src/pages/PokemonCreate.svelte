@@ -1,35 +1,31 @@
 <script>
     import router from "page";
     let card = {};
-    let startingAmount, name, imageURL, availabilityDate, rarity, element, weakness, resistance;
-
+    let startingAmount, name, image, availabilityDate, selectedRarity, selectedElements, selectedWeakness, selectedResistance;
 
     async function postCard() {
+        const formData = new FormData();
+        formData.append("userID", 1);
+        formData.append("name", name);
+        formData.append("startingAmount", startingAmount);
+        formData.append("image", image[0]);
+        formData.append("availabilityDate", availabilityDate);
+        formData.append("rarity", selectedRarity.text);
+        formData.append("element", selectedElements.text);
+        formData.append("weakness", selectedWeakness.text);
+        formData.append("resistance", selectedResistance.text);
+
        const response = await fetch('http://localhost:3000/pokemon-cards', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
 
-           body:  JSON.stringify({
-               userID: 1,
-               name: name,
-               startingAmount: startingAmount,
-               imageURL: imageURL,
-               availabilityDate: availabilityDate,
-               rarity: rarity,
-               element: element,
-               weakness: weakness,
-               resistance: resistance
-           })
+           body: formData
         });
-        console.log(response)
         return await response.json();
     }
 
-
-    let selectedRarity;
     const rarities = [
         {text: 'Select rarity', value: ''},
         {text: 'Common', value: 'common'},
@@ -37,7 +33,6 @@
         {text: 'Rare', value: 'rare'}
     ];
 
-    let selectedElements;
     const elements = [
         {text: 'Select element', value: ''},
         {text: 'Fire', value: 'fire'},
@@ -47,7 +42,6 @@
         {text: 'Grass', value: 'grass'}
     ];
 
-    let selectedWeakness;
     const weaknesses = [
         {text: 'Select weakness', value: ''},
         {text: 'Fire', value: 'fire'},
@@ -57,7 +51,6 @@
         {text: 'Grass', value: 'grass'}
     ];
 
-    let selectedResistance;
     const resistances = [
         {text: 'Select resistance', value: ''},
         {text: 'Fire', value: 'fire'},
@@ -86,7 +79,7 @@
 
     <div class="col-12 col-md-9">
         <label for="formFile" class="col-form-label">Upload an image</label>
-        <input class="form-control" type="file" id="formFile" bind:value="{imageURL}">
+        <input class="form-control" type="file" id="formFile" bind:files="{image}">
     </div>
 
     <div class="col-12 col-md-6 col-lg-3">
