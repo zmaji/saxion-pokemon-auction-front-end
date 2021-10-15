@@ -1,51 +1,17 @@
 <script>
     import router from "page";
     import {onMount} from "svelte";
-    import auctionsStore from "../../stores/auctions";
-    export let card = {};
+    let card = {};
 
     export let params;
     let cardId;
 
-    onMount(() => {
+    onMount(async () => {
         cardId = parseInt(params.id);
-        let items = $auctionsStore.auctions;
-        console.log(items);
-        let item = items.find(card => card.cardID === cardId);
-        console.log(item);
-        startTimer;
+        const response = await fetch(`http://localhost:3000/pokemon-cards/${cardId}`);
+        card = await response.json();
+        console.log(card)
     });
-
-    let timer = "";
-
-    // Set the date we're counting down to
-    let countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
-
-    // Update the count down every 1 second
-    let startTimer = setInterval(function () {
-
-        // Get today's date and time
-        let now = new Date().getTime();
-
-        // Find the distance between now and the count down date
-        let distance = countDownDate - now;
-
-        // Time calculations for days, hours, minutes and seconds
-        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        // Display the result in the element with id="CountdownTimer"
-        timer = days + "d " + hours + "h "
-            + minutes + "m " + seconds + "s ";
-
-        // If the count down is finished, write some text
-        if (distance < 0) {
-            clearInterval(x);
-            timer = "EXPIRED";
-        }
-    }, 1000);
 
     export let bid = {};
 
@@ -64,31 +30,41 @@
 
 <div class="row">
     <div class="col-12">
-        <h3>Pikachu</h3>
+        <h3>{card.name}</h3>
     </div>
     <hr>
-    <div class="col-12 col-md-6">
-        <img src="https://den-cards.pokellector.com/119/Pikachu.BS.58.png" alt="Pikachu">
+    <div class="col-12 col-md-6 position-relative">
+        <div class="price-tag rounded-circle bg-primary p-2 text-white fw-bold shadow-sm position-absolute">€ {card.startingAmount}</div>
+        <img src="http://localhost:3000/uploads/{card.image}" alt="{card.name}">
     </div>
     <div class="col-12 col-md-6">
         <div class="d-flex flex-column px-5 px-md-0 py-4">
-            <h6>Card type:</h6>
-            <p>test</p>
+            <h6>Card rarity:</h6>
+            <p class="py-2 px-3 fw-bold rounded text-white rarity-{card.rarity}">{card.rarity}</p>
 
             <h6>Element:</h6>
-            <p>test</p>
+            <p class="py-2 px-3 fw-bold rounded text-white element-{card.element}">{card.element}</p>
 
             <h6>Weakness:</h6>
-            <p>test</p>
+            <p class="py-2 px-3 fw-bold rounded text-white element-{card.weakness}">{card.weakness}</p>
 
             <h6>Resistance:</h6>
-            <p>test</p>
+            <p class="py-2 px-3 fw-bold rounded text-white element-{card.resistance}">{card.resistance}</p>
 
-            <h6>Available until: Date</h6>
-            <div class="d-flex align-items-center">
-                <i class="fas fa-hourglass-half pe-2"></i>
-                <p class="mb-0" id="CountdownTimer">{timer}</p>
-            </div>
+            <h6>Available until: </h6>
+
+            {#if new Date(card.availabilityDate).getTime() > new Date().getTime()}
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-hourglass-half pe-2"></i>
+                    <p class="mb-0" id="CountdownTimer">{card.availabilityDate}</p>
+                </div>
+            {:else}
+                <div class="alert alert-danger " role="alert">
+                    <i class="fas fa-calendar-times"></i>
+                    This auction has expired
+                </div>
+            {/if}
+
         </div>
 
         <!-- Option to have items centered -->
@@ -160,5 +136,52 @@
         width: 100%;
         object-fit: contain;
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.24));
+    }
+
+    .price-tag {
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 5rem;
+        width: 5rem;
+    }
+
+    .rarity-Common,
+    .rarity-Uncommon,
+    .rarity-Rare,
+    .element-Fire,
+    .element-Water,
+    .element-Electric,
+    .element-Ground,
+    .element-Grass {
+        width: fit-content;
+        width: -moz-fit-content;
+    }
+
+    .element-Fire {
+        background-color: #FF0000;
+    }
+    .element-Water {
+        background-color: #00CCFF;
+    }
+    .element-Electric {
+        background-color: #FFCC00;
+    }
+    .element-Ground {
+        background-color: #996600;
+    }
+    .element-Grass {
+        background-color: #33CC00;
+    }
+
+    .rarity-Common {
+        background-color: #777;
+    }
+    .rarity-Uncommon {
+        background-color: #009900;
+    }
+    .rarity-Rare {
+        background-color: #9900CC;
     }
 </style>
