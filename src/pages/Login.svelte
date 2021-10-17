@@ -1,7 +1,8 @@
 <script>
-    import { useForm, validators, HintGroup, Hint, email, required } from "svelte-use-form";
+    import {useForm, validators, HintGroup, Hint, email, required} from "svelte-use-form";
     import tokenStore from "../stores/token";
     import router from "page";
+    import App from "../App.svelte";
 
     const form = useForm();
 
@@ -13,7 +14,7 @@
         const response = await fetch('http://localhost:3000/credentials', {
             method: 'POST',
             headers: {
-                'Content-type' : 'application/json'
+                'Content-type': 'application/json'
             },
             body: JSON.stringify({
                 email: userEmail,
@@ -70,10 +71,21 @@
             {/if}
 
             {#if !$tokenStore.token}
-                <button disabled={!$form.valid} on:click|preventDefault={login} class="btn btn-primary text-white">Login <i class="fas fa-sign-in-alt"></i></button>
+                <button disabled={!$form.valid} on:click|preventDefault={login} class="btn btn-primary text-white mb-3">Login <i class="fas fa-sign-in-alt"></i></button>
             {:else}
                 <a on:click={() => router.redirect(`/pokemon-cards`)} class="btn btn-success text-white">Continue</a>
             {/if}
+            <div class="mb3">
+                <hr>
+            </div>
+            <div>
+                <h4>No account yet?</h4>
+                <p>Create one within two minutes.</p>
+            </div>
+            <div>
+                <button type="button" class="btn btn-success text-white mb-3" on:click={() => router.redirect('/register')}>Register <i class="fas fa-user-plus"></i></button>
+            </div>
+
         </form>
     </div>
 </div>
