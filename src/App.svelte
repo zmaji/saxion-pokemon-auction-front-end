@@ -7,6 +7,7 @@
     import Login from "./pages/Login.svelte";
     import PokemonEdit from "./pages/PokemonEdit.svelte";
     import PokemonCreate from "./pages/PokemonCreate.svelte";
+    import Register from "./pages/Register.svelte";
 
     // Middleware
     import isLoggedIn from "./middleware/isLoggedIn";
@@ -39,10 +40,11 @@
     });
     router('/users', (ctx) => page = Users);
     router('/login', (ctx) => page = Login);
+    router('/register', (ctx) => page = Register);
 
     router.start();
-</script>
 
+</script>
 <svelte:head>
     <title>Pokemon cards auction</title>
     <link rel="stylesheet" href="/css/main.css">
