@@ -30,11 +30,14 @@
                     <a class="nav-link {location.href === 'http://localhost:5000/users' ? 'active' : ''}" on:click={() => router.redirect('/users')}>Users</a>
                 </li>
             </ul>
-            {#if $tokenStore.token}
-                <button class="btn btn-outline-secondary" on:click={logout}>Logout</button>
-            {:else}
-                <button class="btn btn-outline-secondary" on:click={() => router.redirect('/login')}>Login <i class="fas fa-sign-in-alt"></i></button>
-            {/if}
+            <div class="pe-3">
+                <button class="btn btn-outline-secondary" on:click={() => router.redirect('/register')}>Register <i class="fas fa-user-plus"></i></button>
+            </div>
         </div>
+        {#if $tokenStore.token}
+            <button class="btn btn-outline-secondary" on:click={logout}>Logout</button>
+        {:else}
+            <button class="btn btn-outline-secondary" on:click={() => router.redirect('/login')}>Login <i class="fas fa-sign-in-alt"></i></button>
+        {/if}
     </div>
 </nav>
