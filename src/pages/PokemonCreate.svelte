@@ -15,17 +15,20 @@
         formData.append("weakness", selectedWeakness.text);
         formData.append("resistance", selectedResistance.text);
 
-       const response = await fetch('http://localhost:3000/pokemon-cards', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
-
-           body: formData
-        });
-        if (response.status === 201) {
-            let result = await response.json();
-            window.location.replace(window.location.href.replace("/create", `/${result.cardID}`))
+        try {
+            const response = await fetch('http://localhost:3000/pokemon-cards', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: formData
+            });
+            if (response.status === 201) {
+                let result = await response.json();
+                window.location.replace(window.location.href.replace("/create", `/${result.cardID}`))
+            }
+        } catch(error) {
+            console.error(error);
         }
     }
 
