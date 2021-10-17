@@ -23,7 +23,10 @@
 
            body: formData
         });
-        return await response.json();
+        if (response.status === 201) {
+            let result = await response.json();
+            window.location.replace(window.location.href.replace("/create", `/${result.cardID}`))
+        }
     }
 
     const rarities = [
@@ -130,7 +133,7 @@
 <div class="col-12 d-flex justify-content-between">
     <div class="text-start">
         <!-- If (loggedIn && admin) statement -->
-        <button type="button" class="btn btn-primary text-white" on:click={() => postCard()}>Create <i class="far fa-check-square"></i></button>
+        <button type="button" class="btn btn-primary text-white" on:click={postCard}>Create <i class="far fa-check-square"></i></button>
     </div>
 
     <!-- Endif -->
