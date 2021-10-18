@@ -30,10 +30,10 @@
                 method: 'POST',
                 body: formData
             });
+
             console.log(response)
             if (response.status === 201) {
-                return await response.json();
-                window.location.replace(window.location.href.replace("/register", "/users"))
+                window.location.replace(window.location.href.replace("/register", "/login"))
             }
         } catch(error) {
             console.error(error);
