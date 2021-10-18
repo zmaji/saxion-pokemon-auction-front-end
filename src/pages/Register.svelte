@@ -33,7 +33,7 @@
 
             console.log(response)
             if (response.status === 201) {
-                window.location.replace(window.location.href.replace("/register", "/login"))
+                router.redirect('/login')
             }
         } catch(error) {
             console.error(error);
