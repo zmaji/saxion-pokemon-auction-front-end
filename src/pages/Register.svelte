@@ -106,7 +106,7 @@
         </div>
 
         <div>
-            <button type="button" class="me-2 btn btn-success text-white" on:click={postUser}>Register account <i class="far fa-check-square"></i></button>
+            <button type="button" class="me-2 btn btn-success text-white" onsubmit="return confirm('Do you really want to submit the form?');" on:click={postUser}>Register account <i class="far fa-check-square"></i></button>
             <button type="button" class="btn btn-secondary " on:click={() => router.redirect('/users')}>Return <i class="fas fa-times"></i></button>
         </div>
 

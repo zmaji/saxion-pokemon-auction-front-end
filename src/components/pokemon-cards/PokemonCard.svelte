@@ -1,7 +1,37 @@
 <script>
     import router from "page";
+    import Swal from "sweetalert2";
     export let card = {};
     // console.log(card.image)
+
+    function tryDelete(cardID) {
+        Swal.fire({
+            iconColor: '#dc3545',
+            title: 'Are you sure?',
+            text: "This auction will be deleted!",
+            icon: 'warning',
+            confirmButtonColor: '#ffde00',
+            confirmButtonText: 'Yes, delete this auction',
+            showCancelButton: true,
+            cancelButtonText: 'Cancel',
+            cancelButtonColor: '#dc3545'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                fetch(window.location.href, {
+                    method: 'DELETE',
+                });
+
+                await Swal.fire({
+                    title: 'Deleted!',
+                    text: "This auction has been deleted",
+                    icon: 'success',
+                    confirmButtonColor: '#ffde00',
+                });
+
+                // window.location.replace(window.location.href.replace(`/function-families/${familyId}`, ''));
+            }
+        });
+    }
 </script>
 
 <div class="col-12 col-md-6 col-lg-4 p-3">
@@ -11,7 +41,7 @@
                 <div class="d-flex flex-column bg-white rounded py-2 px-1 shadow-sm">
                     <button type="button" class="btn btn-primary text-white mb-2" on:click={() => router.redirect(`/pokemon-cards/${card.cardID}`)}><i class="fas fa-eye"></i></button>
                     <button type="button" class="btn btn-secondary text-white mb-2" on:click={() => router.redirect(`/pokemon-cards/${card.cardID}/edit`)}><i class="fas fa-edit"></i></button>
-                    <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    <button type="button" class="btn btn-danger" on:click={() => tryDelete(`${card.cardId}`)}><i class="fas fa-trash-alt"></i></button>
                 </div>
             </div>
             {#if card.image}
