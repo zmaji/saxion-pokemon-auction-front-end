@@ -15,23 +15,19 @@
     let userZipCode = "";
 
     async function postUser() {
-        const formData = new FormData();
+        let formData = new FormData();
         formData.append("firstName", userFirstName);
         formData.append("lastName", userLastName);
         formData.append("avatar", avatar[0]);
+        formData.append("email", userEmail);
         formData.append("password", userPassword);
         formData.append("city", userCity);
         formData.append("address", userAddress);
         formData.append("zipCode", userZipCode);
 
-        console.log(formData)
-
         try {
             const response = await fetch('http://localhost:3000/users', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
                 body: formData
             });
             console.log(response)

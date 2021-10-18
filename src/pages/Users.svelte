@@ -11,6 +11,7 @@
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
         });
+
         return await response.json();
     })();
 </script>
