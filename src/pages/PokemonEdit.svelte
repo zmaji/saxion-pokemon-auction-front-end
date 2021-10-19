@@ -1,6 +1,6 @@
 <script>
     import router from "page";
-    let card = {};
+    export let card = {};
     let startingAmount, name, image, availabilityDate, selectedRarity, selectedElements, selectedWeakness, selectedResistance;
 
     const rarities = [
