@@ -1,6 +1,8 @@
 <script>
     import router from "page";
     import {onMount} from "svelte";
+    import Bids from "../bids/Bids.svelte";
+
     let card = {};
 
     export let params;
@@ -67,24 +69,9 @@
                     This auction has expired
                 </div>
             {/if}
-
         </div>
-
-        <!-- Option to have items centered -->
-        <!--        <div class="pt-3 pt-lg-4">-->
-        <!--            <h6>Available until: Date</h6>-->
-        <!--            <i class="fas fa-hourglass-half pb-2"></i>-->
-        <!--            <p id="CountdownTimer"></p>-->
-        <!--        </div>-->
-        <!-- Option to have items centered but div aligned left -->
-        <!--        <div class="pt-3 pt-lg-4 d-flex justify-content-start">-->
-        <!--            <div class="d-flex flex-column align-items-center">-->
-        <!--                <h6>Available until: Date</h6>-->
-        <!--                <i class="fas fa-hourglass-half pb-2"></i>-->
-        <!--                <p id="CountdownTimer"></p>-->
-        <!--            </div>-->
-        <!--        </div>-->
     </div>
+
     <div class="col-12 col-md-6 mb-3">
         <h3>Place bid:</h3>
         <div class=" input-group">
@@ -94,30 +81,7 @@
         </div>
     </div>
     <h3 class="pt-2 ps-3">Current bids:</h3>
-    <div class="col-12 col-md-6 px-3 py-2">
-        <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3 mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">€ test</h4>
-                <small class="">Placed by: test</small>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-md-6 px-3 py-2">
-        <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3 mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">€ test</h4>
-                <small class="">Placed by: test</small>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-md-6 px-3 py-2">
-        <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">€ test</h4>
-                <small class="">Placed by: test</small>
-            </div>
-        </div>
-    </div>
+    <Bids></Bids>
     <hr>
     <div class="col-12 d-flex justify-content-between">
         <div class="text-start">
