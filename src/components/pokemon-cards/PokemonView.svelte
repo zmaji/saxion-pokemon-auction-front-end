@@ -1,7 +1,7 @@
 <script>
     import router from "page";
     import {onMount} from "svelte";
-    import Bids from "../bids/Bids.svelte";
+    import Bid from "../bids/Bid.svelte";
 
     let card = {};
 
@@ -69,7 +69,15 @@
         </div>
     </div>
     <h3 class="pt-2 ps-3">Current bids:</h3>
-    <Bids></Bids>
+    {#if card.bids && card.bids.length}
+        {#each card.bids as bid}
+            <Bid {bid}/>
+        {/each}
+    {:else}
+        <div class="col-12 col-md-6 px-3 py-2">
+            <p>No bids have been placed yet.</p>
+        </div>
+    {/if}
     <hr>
     <div class="col-12 d-flex justify-content-between">
         <div class="text-start">
