@@ -1,5 +1,5 @@
 <script>
-    import {useForm, validators, HintGroup, Hint, email, required} from "svelte-use-form";
+    import {useForm, validators, HintGroup, Hint, email, required, minLength} from "svelte-use-form";
     import router from "page";
     let user = {};
 
@@ -73,8 +73,9 @@
         <div class="col-12 col-md-6">
             <label for="password" class="col-form-label">Password:</label>
             <input type="password" name="password" class="form-control" placeholder="Last name" id="password"
-                   bind:value="{userPassword}" use:validators={[required]}>
+                   bind:value="{userPassword}" use:validators={[required, minLength(6)]}>
             <Hint for="password" on="required">This is a mandatory field</Hint>
+            <Hint for="password" on="minLength" hideWhenRequired>Password needs be 6 characters at least</Hint>
         </div>
 
         <div class="col-12 col-md-6">

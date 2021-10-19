@@ -34,11 +34,14 @@
     </div>
     <hr>
     <div class="col-12 col-md-6 position-relative">
-        <div class="price-tag rounded-circle bg-primary p-2 text-white fw-bold shadow-sm position-absolute">€ {card.startingAmount}</div>
         <img src="http://localhost:3000/uploads/{card.image}" alt="{card.name}">
+        <div class="text-center mt-4">
+            <span class="price-tag rounded-pill bg-primary px-3 py-2 text-center text-white fw-bold shadow-sm">Starting at: € {card.startingAmount}</span>
+
+        </div>
     </div>
     <div class="col-12 col-md-6">
-        <div class="d-flex flex-column px-5 px-md-0 py-4">
+        <div class="d-flex flex-column px-md-5 px-md-0 py-4">
             <h6>Card rarity:</h6>
             <p class="py-2 px-3 fw-bold rounded text-white rarity-{card.rarity}">{card.rarity}</p>
 
@@ -139,12 +142,7 @@
     }
 
     .price-tag {
-        font-size: 1.5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 5rem;
-        width: 5rem;
+        font-size: 1.25rem;
     }
 
     .rarity-Common,
