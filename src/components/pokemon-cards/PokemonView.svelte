@@ -16,18 +16,6 @@
     });
 
     export let bid = {};
-
-    const fetchBidOwner = (async () => {
-        console.log('Bearer ' + localStorage.getItem('token'))
-        const response = await fetch(`http://localhost:3000/users/${bid.userID}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            }
-        });
-        return await response.json();
-    })();
 </script>
 
 <div class="row">
