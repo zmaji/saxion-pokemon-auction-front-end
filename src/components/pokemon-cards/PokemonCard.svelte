@@ -1,6 +1,8 @@
 <script>
     import router from "page";
     import Swal from "sweetalert2";
+    import {createEventDispatcher} from "svelte";
+    const dispatch = createEventDispatcher();
     export let card = {};
 
     function tryDelete() {
@@ -26,6 +28,8 @@
                     icon: 'success',
                     confirmButtonColor: '#ffde00',
                 });
+
+                dispatch('delete');
             }
         });
     }

@@ -9,18 +9,18 @@
     let items = [];
     let currentPage = 1;
     let pageSize = 4;
-    const fetchCards = (async () => {
-        const response = await fetch('http://localhost:3000/pokemon-cards');
-        const result = await response.json();
-
-        return result;
-    })();
 
     onMount(async () => {
-        fetch('http://localhost:3000/pokemon-cards').then(async (res) => {
-            items = await res.json();
-        })
+        await fetchCards()
     });
+
+    async function fetchCards() {
+        const response = await fetch('http://localhost:3000/pokemon-cards');
+        const result = await response.json();
+        items = result;
+
+        return result;
+    }
 
     async function filterCards(e) {
         const response = await fetch(`http://localhost:3000/pokemon-cards?name=${e.detail.query}`);
@@ -43,7 +43,7 @@
 
     <div class="row" transition:fade>
         {#each paginatedItems as card}
-            <PokemonCard {card}/>
+            <PokemonCard {card} on:delete={fetchCards}/>
         {/each}
 
     </div>
