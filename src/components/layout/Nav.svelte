@@ -31,13 +31,13 @@
                 </li>
             </ul>
             <div class="pe-3">
-                <button class="btn btn-outline-secondary" on:click={() => router.redirect('/register')}>Register <i class="fas fa-user-plus"></i></button>
+                <button class="btn btn-outline-secondary mb-2 mb-lg-0" on:click={() => router.redirect('/register')}>Register <i class="fas fa-user-plus"></i></button>
             </div>
+            {#if $tokenStore.token}
+                <button class="btn btn-outline-secondary" on:click={logout}>Logout</button>
+            {:else}
+                <button class="btn btn-outline-secondary" on:click={() => router.redirect('/login')}>Login <i class="fas fa-sign-in-alt"></i></button>
+            {/if}
         </div>
-        {#if $tokenStore.token}
-            <button class="btn btn-outline-secondary" on:click={logout}>Logout</button>
-        {:else}
-            <button class="btn btn-outline-secondary" on:click={() => router.redirect('/login')}>Login <i class="fas fa-sign-in-alt"></i></button>
-        {/if}
     </div>
 </nav>
