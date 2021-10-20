@@ -78,7 +78,10 @@
             <p>No bids have been placed yet.</p>
         </div>
     {/if}
-    <hr>
+    <div>
+        <hr>
+    </div>
+
     <div class="col-12 d-flex justify-content-between">
         <div class="text-start">
             <!-- If (loggedIn && admin) statement -->

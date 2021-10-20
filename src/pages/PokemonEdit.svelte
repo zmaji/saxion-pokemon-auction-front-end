@@ -1,7 +1,11 @@
 <script>
     import router from "page";
-    export let card = {};
-    let startingAmount, name, image, availabilityDate, selectedRarity, selectedElements, selectedWeakness, selectedResistance;
+    import {onMount} from "svelte";
+    export let card = {}
+
+    export let params;
+    let cardId;
+
 
     const rarities = [
         {text: 'Select rarity', value: ''},
@@ -37,19 +41,26 @@
         {text: 'Grass', value: 'grass'}
     ];
 
+    onMount(async () => {
+        cardId = parseInt(params.id);
+        const response = await fetch(`http://localhost:3000/pokemon-cards/${cardId}`);
+        card = await response.json();
+        console.log(card)
+    });
+
     async function submitCard() {
 
-        console.log(card.name)
+        console.log(card)
 
         const formData = new FormData();
-        formData.append("name", name);
-        formData.append("startingAmount", startingAmount);
-        formData.append("image", image[0]);
-        formData.append("availabilityDate", availabilityDate);
-        formData.append("rarity", selectedRarity.text);
-        formData.append("element", selectedElements.text);
-        formData.append("weakness", selectedWeakness.text);
-        formData.append("resistance", selectedResistance.text);
+        formData.append("name", card.name);
+        formData.append("startingAmount", card.startingAmount);
+        formData.append("image", card.image[0]);
+        formData.append("availabilityDate", card.availabilityDate);
+        formData.append("rarity", card.rarity.text);
+        formData.append("element", card.element.text);
+        formData.append("weakness", card.weakness.text);
+        formData.append("resistance", card.resistance.text);
 
         try {
             const response = await fetch(`http://localhost:3000/pokemon-cards/${card.cardID}`, {
@@ -73,28 +84,28 @@
 <form id="edit-card" class="row g-3 pb-3">
     <div class="col-12 col-md-8">
         <label for="pokemon-name" class="col-form-label">Pokemon name</label>
-        <input type="text" class="form-control" placeholder="Pokemon name" id="pokemon-name" bind:value="{card.name}" onchange="{e => name = e.target.value}">
+        <input type="text" class="form-control" placeholder="Pokemon name" id="pokemon-name" bind:value="{card.name}">
     </div>
 
     <div class="col-12 col-md-4">
         <label for="starting-amount" class="col-form-label">Starting amount</label>
-        <input type="text" class="form-control" placeholder="Starting amount" id="starting-amount" bind:value="{startingAmount}">
+        <input type="text" class="form-control" placeholder="Starting amount" id="starting-amount" bind:value={card.startingAmount}>
     </div>
 
     <div class="col-12 col-md-3">
         <label for="date" class="col-form-label">Available until</label>
-        <input type="date" class="form-control" id="date" bind:value="{availabilityDate}">
+        <input type="date" class="form-control" id="date" bind:value="{card.availabilityDate}">
     </div>
 
 
     <div class="col-12 col-md-9">
         <label for="formFile" class="col-form-label">Upload an image</label>
-        <input class="form-control" type="file" id="formFile" bind:files="{image}">
+        <input class="form-control" type="file" id="formFile" bind:files="{card.image}">
     </div>
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Rarity</label>
-        <select class="form-select" bind:value={selectedRarity} id="rarity">
+        <select class="form-select" bind:value="{card.rarity}" id="rarity">
             {#each rarities as rarity}
                 <option value={rarity}>
                     {rarity.text}
@@ -105,7 +116,7 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Element</label>
-        <select class="form-select" bind:value={selectedElements} id="element">
+        <select class="form-select" bind:value={card.element} id="element">
             {#each elements as element}
                 <option value={element}>
                     {element.text}
@@ -116,7 +127,7 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Weakness</label>
-        <select class="form-select" bind:value={selectedWeakness} id="weakness">
+        <select class="form-select" bind:value={card.weakness} id="weakness">
             {#each weaknesses as weakness}
                 <option value={weakness}>
                     {weakness.text}
@@ -127,7 +138,7 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Resistance</label>
-        <select class="form-select" bind:value={selectedResistance} id="resistance">
+        <select class="form-select" bind:value={card.resistance} id="resistance">
             {#each resistances as resistance}
                 <option value={resistance}>
                     {resistance.text}
