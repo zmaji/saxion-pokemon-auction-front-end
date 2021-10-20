@@ -1,6 +1,5 @@
 <script>
     import router from "page";
-    let card = {};
     let startingAmount, name, image, availabilityDate, selectedRarity, selectedElements, selectedWeakness, selectedResistance;
 
     async function postCard() {

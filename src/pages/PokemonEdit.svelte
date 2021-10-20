@@ -9,36 +9,36 @@
 
     const rarities = [
         {text: 'Select rarity', value: ''},
-        {text: 'Common', value: 'common'},
-        {text: 'Uncommon', value: 'uncommon'},
-        {text: 'Rare', value: 'rare'}
+        {text: 'Common', value: 'Common'},
+        {text: 'Uncommon', value: 'Uncommon'},
+        {text: 'Rare', value: 'Rare'}
     ];
 
     const elements = [
         {text: 'Select element', value: ''},
-        {text: 'Fire', value: 'fire'},
-        {text: 'Water', value: 'water'},
-        {text: 'Electric', value: 'electric'},
-        {text: 'Ground', value: 'ground'},
-        {text: 'Grass', value: 'grass'}
+        {text: 'Fire', value: 'Fire'},
+        {text: 'Water', value: 'Water'},
+        {text: 'Electric', value: 'Electric'},
+        {text: 'Ground', value: 'Ground'},
+        {text: 'Grass', value: 'Grass'}
     ];
 
     const weaknesses = [
         {text: 'Select weakness', value: ''},
-        {text: 'Fire', value: 'fire'},
-        {text: 'Water', value: 'water'},
-        {text: 'Electric', value: 'electric'},
-        {text: 'Ground', value: 'ground'},
-        {text: 'Grass', value: 'grass'}
+        {text: 'Fire', value: 'Fire'},
+        {text: 'Water', value: 'Water'},
+        {text: 'Electric', value: 'Electric'},
+        {text: 'Ground', value: 'Ground'},
+        {text: 'Grass', value: 'Grass'}
     ];
 
     const resistances = [
         {text: 'Select resistance', value: ''},
-        {text: 'Fire', value: 'fire'},
-        {text: 'Water', value: 'water'},
-        {text: 'Electric', value: 'electric'},
-        {text: 'Ground', value: 'ground'},
-        {text: 'Grass', value: 'grass'}
+        {text: 'Fire', value: 'Fire'},
+        {text: 'Water', value: 'Water'},
+        {text: 'Electric', value: 'Electric'},
+        {text: 'Ground', value: 'Ground'},
+        {text: 'Grass', value: 'Grass'}
     ];
 
     onMount(async () => {
@@ -57,10 +57,10 @@
         formData.append("startingAmount", card.startingAmount);
         formData.append("image", card.image[0]);
         formData.append("availabilityDate", card.availabilityDate);
-        formData.append("rarity", card.rarity.text);
-        formData.append("element", card.element.text);
-        formData.append("weakness", card.weakness.text);
-        formData.append("resistance", card.resistance.text);
+        formData.append("rarity", card.rarity);
+        formData.append("element", card.element);
+        formData.append("weakness", card.weakness);
+        formData.append("resistance", card.resistance);
 
         try {
             const response = await fetch(`http://localhost:3000/pokemon-cards/${card.cardID}`, {
@@ -107,7 +107,7 @@
         <label class="mb-1" for="resistance">Rarity</label>
         <select class="form-select" bind:value="{card.rarity}" id="rarity">
             {#each rarities as rarity}
-                <option value={rarity}>
+                <option value={rarity.value}>
                     {rarity.text}
                 </option>
             {/each}
@@ -118,7 +118,7 @@
         <label class="mb-1" for="resistance">Element</label>
         <select class="form-select" bind:value={card.element} id="element">
             {#each elements as element}
-                <option value={element}>
+                <option value={element.value}>
                     {element.text}
                 </option>
             {/each}
@@ -129,7 +129,7 @@
         <label class="mb-1" for="resistance">Weakness</label>
         <select class="form-select" bind:value={card.weakness} id="weakness">
             {#each weaknesses as weakness}
-                <option value={weakness}>
+                <option value={weakness.value} selected>
                     {weakness.text}
                 </option>
             {/each}
@@ -140,7 +140,7 @@
         <label class="mb-1" for="resistance">Resistance</label>
         <select class="form-select" bind:value={card.resistance} id="resistance">
             {#each resistances as resistance}
-                <option value={resistance}>
+                <option value={resistance.value}>
                     {resistance.text}
                 </option>
             {/each}
