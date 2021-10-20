@@ -4,6 +4,7 @@
     import Bid from "../bids/Bid.svelte";
 
     let card = {};
+    export let bid = {};
 
     export let params;
     let cardId;
@@ -15,7 +16,28 @@
         console.log(card)
     });
 
-    export let bid = {};
+    async function postBid() {
+        let bidPrice = document.getElementById("bid-amount").value
+        let payload = JSON.stringify({
+            "bidPrice": bidPrice
+        })
+        try {
+            const response = await fetch(`http://localhost:3000/pokemon-cards/${cardId}/bids`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: payload
+            });
+            console.log(response)
+            if (response.status === 201) {
+                return response;
+            }
+        } catch(error) {
+            console.error(error);
+        }
+    }
+
 </script>
 
 <div class="row">
@@ -64,7 +86,7 @@
         <h3>Place bid:</h3>
         <div class=" input-group">
             <input type="text" class="form-control" placeholder="Bid amount" id="bid-amount">
-            <button type="submit" class="btn btn-success text-white">Place bid</button>
+            <button type="submit" class="btn btn-success text-white" on:click={postBid}>Place bid</button>
 
         </div>
     </div>
