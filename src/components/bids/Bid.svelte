@@ -1,14 +1,48 @@
 <script>
     import { fade } from 'svelte/transition';
+    import Swal from "sweetalert2";
+    import {createEventDispatcher} from "svelte";
     export let bid = {};
+    export let card = {};
+    const dispatch = createEventDispatcher();
+
+    function deleteBid() {
+        Swal.fire({
+            iconColor: '#dc3545',
+            title: 'Are you sure?',
+            text: "This auction will be deleted!",
+            icon: 'warning',
+            confirmButtonColor: '#ffde00',
+            confirmButtonText: 'Yes, delete this auction',
+            showCancelButton: true,
+            cancelButtonText: 'Cancel',
+            cancelButtonColor: '#dc3545'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await fetch(`http://localhost:3000/pokemon-cards/${card.cardID}/bids/${bid.bidID}`, {
+                    method: 'DELETE'
+                });
+
+                await Swal.fire({
+                    title: 'Deleted!',
+                    text: "This auction has been deleted",
+                    icon: 'success',
+                    confirmButtonColor: '#ffde00',
+                });
+
+                dispatch('delete');
+            }
+        });
+    }
 </script>
 
 
-<div class="col-12 col-md-6 px-3 py-2" transition:fade>
+<div class="col-12 col-md-4 px-3 py-2" transition:fade>
     <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3 mb-0">
         <div class="d-flex justify-content-between align-items-center">
             <h4 class="mb-0">€ {bid.bidPrice}</h4>
             <small class="">Placed by: {bid.ownerName}</small>
+            <button type="button" class="btn btn-danger" on:click={() => deleteBid()}><i class="fas fa-trash-alt"></i></button>
         </div>
     </div>
 </div>
