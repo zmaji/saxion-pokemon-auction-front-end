@@ -6,7 +6,6 @@
     export let params;
     let cardId;
 
-
     const rarities = [
         {text: 'Select rarity', value: ''},
         {text: 'Common', value: 'Common'},

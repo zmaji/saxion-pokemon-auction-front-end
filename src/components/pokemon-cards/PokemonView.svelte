@@ -3,11 +3,9 @@
     import {onMount} from "svelte";
     import Bid from "../bids/Bid.svelte";
 
-    let card = {};
-    export let bid = {};
-
     export let params;
-    let cardId;
+    let card = {};
+    let cardId, bidPrice;
 
     onMount(async () => {
         cardId = parseInt(params.id);
@@ -16,21 +14,30 @@
         console.log(card)
     });
 
+    async function fetchCardBids() {
+        const response = await fetch(`http://localhost:3000/pokemon-cards/${cardId}/bids`);
+        let result =  await response.json();
+        if (result) {
+            card.bids = result;
+        }
+    }
+
     async function postBid() {
-        let bidPrice = document.getElementById("bid-amount").value
-        let payload = JSON.stringify({
-            "bidPrice": bidPrice
-        })
+        console.log(bidPrice)
         try {
             const response = await fetch(`http://localhost:3000/pokemon-cards/${cardId}/bids`, {
                 method: 'POST',
                 headers: {
+                    'Content-type': 'application/json',
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 },
-                body: payload
+                body: JSON.stringify({
+                    "bidPrice": bidPrice
+                })
             });
             console.log(response)
             if (response.status === 201) {
+                await fetchCardBids()
                 return response;
             }
         } catch(error) {
@@ -85,7 +92,7 @@
     <div class="col-12 col-md-6 mb-3">
         <h3>Place bid:</h3>
         <div class=" input-group">
-            <input type="text" class="form-control" placeholder="Bid amount" id="bid-amount">
+            <input type="text" class="form-control" placeholder="Bid amount" id="bid-amount" bind:value={bidPrice}>
             <button type="submit" class="btn btn-success text-white" on:click={postBid}>Place bid</button>
 
         </div>
