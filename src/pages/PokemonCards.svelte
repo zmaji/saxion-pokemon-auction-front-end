@@ -8,7 +8,7 @@
 
     let items = [];
     let currentPage = 1;
-    let pageSize = 4;
+    let pageSize = 6;
 
     onMount(async () => {
         await fetchCards()
