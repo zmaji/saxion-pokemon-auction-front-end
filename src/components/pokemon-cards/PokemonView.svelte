@@ -1,5 +1,6 @@
 <script>
     import rolesStore from "../../stores/roles";
+    import tokenStore from "../../stores/token";
     import router from "page";
     import {onMount} from "svelte";
     import Bid from "../bids/Bid.svelte";
@@ -136,6 +137,7 @@
         </div>
     </div>
 
+    {#if $tokenStore.token}
     <div class="col-12 col-md-6 mb-3">
         <h3>Place bid:</h3>
         <div class="input-group">
@@ -143,6 +145,7 @@
             <button type="submit" class="btn btn-success text-white" on:click={postBid}>Place bid</button>
         </div>
     </div>
+    {/if}
     <h3 class="pt-2 ps-3">Current bids:</h3>
     {#if card.bids && card.bids.length}
         {#each card.bids as bid}
