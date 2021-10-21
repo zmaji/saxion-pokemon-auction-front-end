@@ -50,10 +50,10 @@
         Swal.fire({
             iconColor: '#dc3545',
             title: 'Are you sure?',
-            text: "This bid will be deleted!",
+            text: "This auction will be deleted!",
             icon: 'warning',
             confirmButtonColor: '#ffde00',
-            confirmButtonText: 'Yes, delete this bid',
+            confirmButtonText: 'Yes, delete this auction',
             showCancelButton: true,
             cancelButtonText: 'Cancel',
             cancelButtonColor: '#dc3545'
@@ -68,7 +68,7 @@
 
                 await Swal.fire({
                     title: 'Deleted!',
-                    text: "This bid has been deleted",
+                    text: "This auction has been deleted",
                     icon: 'success',
                     confirmButtonColor: '#ffde00',
                 });
