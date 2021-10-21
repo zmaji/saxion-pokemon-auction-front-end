@@ -10,22 +10,25 @@
         Swal.fire({
             iconColor: '#dc3545',
             title: 'Are you sure?',
-            text: "This auction will be deleted!",
+            text: "This bid will be deleted!",
             icon: 'warning',
             confirmButtonColor: '#ffde00',
-            confirmButtonText: 'Yes, delete this auction',
+            confirmButtonText: 'Yes, delete this bid',
             showCancelButton: true,
             cancelButtonText: 'Cancel',
             cancelButtonColor: '#dc3545'
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await fetch(`http://localhost:3000/pokemon-cards/${card.cardID}/bids/${bid.bidID}`, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
                 });
 
                 await Swal.fire({
                     title: 'Deleted!',
-                    text: "This auction has been deleted",
+                    text: "This bid has been deleted",
                     icon: 'success',
                     confirmButtonColor: '#ffde00',
                 });
