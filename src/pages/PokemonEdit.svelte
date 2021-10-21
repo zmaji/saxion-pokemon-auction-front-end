@@ -69,9 +69,10 @@
                 },
                 body: formData
             });
-            if (response.status === 201) {
+            if (response.status === 200) {
                 // let result = await response.json();
-                window.location.replace(window.location.href.replace("/edit", ""))
+                console.log('test')
+                router.redirect(`/pokemon-cards/${card.cardID}`);
             }
         } catch(error) {
             console.error(error);

@@ -3,6 +3,7 @@
     import router from "page";
     import {onMount} from "svelte";
     import Bid from "../bids/Bid.svelte";
+    import Swal from "sweetalert2";
 
     export let params;
     let card = {};
@@ -44,6 +45,38 @@
         } catch(error) {
             console.error(error);
         }
+    }
+
+    function tryDelete() {
+        Swal.fire({
+            iconColor: '#dc3545',
+            title: 'Are you sure?',
+            text: "This auction will be deleted!",
+            icon: 'warning',
+            confirmButtonColor: '#ffde00',
+            confirmButtonText: 'Yes, delete this auction',
+            showCancelButton: true,
+            cancelButtonText: 'Cancel',
+            cancelButtonColor: '#dc3545'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await fetch(`http://localhost:3000/pokemon-cards/${card.cardID}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
+                });
+
+                await Swal.fire({
+                    title: 'Deleted!',
+                    text: "This auction has been deleted",
+                    icon: 'success',
+                    confirmButtonColor: '#ffde00',
+                });
+
+                router.redirect('/pokemon-cards');
+            }
+        });
     }
 
 </script>
@@ -116,7 +149,7 @@
         <div class="col-12 d-flex justify-content-between">
             <div class="text-start">
                 <button type="button" class="btn btn-primary text-white me-2" on:click={() => router.redirect(`/pokemon-cards/${card.cardID}/edit`)}>Edit <i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger">Delete <i class="fas fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-danger" on:click={tryDelete}>Delete <i class="fas fa-trash-alt"></i></button>
             </div>
 
             <div class="text-end">
