@@ -24,7 +24,7 @@
         }
     }
 
-    function tryPost() {
+    function postBid() {
         Swal.fire({
             iconColor: '#dc3545',
             title: 'Are you sure?',
@@ -54,36 +54,13 @@
                     icon: 'success',
                     confirmButtonColor: '#ffde00',
                 });
-
+                bidPrice = ''
                 card.bids = fetchCardBids();
             }
         });
     }
 
-    // async function postBid() {
-    //     console.log(bidPrice)
-    //     try {
-    //         const response = await fetch(`http://localhost:3000/pokemon-cards/${cardId}/bids`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-type': 'application/json',
-    //                 'Authorization': 'Bearer ' + localStorage.getItem('token')
-    //             },
-    //             body: JSON.stringify({
-    //                 "bidPrice": bidPrice
-    //             })
-    //         });
-    //         console.log(response)
-    //         if (response.status === 201) {
-    //             await fetchCardBids()
-    //             return response;
-    //         }
-    //     } catch(error) {
-    //         console.error(error);
-    //     }
-    // }
-
-    function tryDelete() {
+    function deleteCard() {
         Swal.fire({
             iconColor: '#dc3545',
             title: 'Are you sure?',
@@ -161,9 +138,9 @@
 
     <div class="col-12 col-md-6 mb-3">
         <h3>Place bid:</h3>
-        <div class=" input-group">
+        <div class="input-group">
             <input type="text" class="form-control" placeholder="Bid amount" id="bid-amount" bind:value={bidPrice}>
-            <button type="submit" class="btn btn-success text-white" on:click={tryPost}>Place bid</button>
+            <button type="submit" class="btn btn-success text-white" on:click={postBid}>Place bid</button>
 
         </div>
     </div>
@@ -185,7 +162,7 @@
         <div class="col-12 d-flex justify-content-between">
             <div class="text-start">
                 <button type="button" class="btn btn-primary text-white me-2" on:click={() => router.redirect(`/pokemon-cards/${card.cardID}/edit`)}>Edit <i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger" on:click={tryDelete}>Delete <i class="fas fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-danger" on:click={deleteCard}>Delete <i class="fas fa-trash-alt"></i></button>
             </div>
 
             <div class="text-end">
