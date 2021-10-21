@@ -33,7 +33,7 @@
                     confirmButtonColor: '#ffde00',
                 });
 
-                dispatch('delete');
+                dispatch('deleteCard');
             }
         });
     }

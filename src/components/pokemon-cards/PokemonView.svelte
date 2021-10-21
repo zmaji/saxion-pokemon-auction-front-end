@@ -24,28 +24,64 @@
         }
     }
 
-    async function postBid() {
-        console.log(bidPrice)
-        try {
-            const response = await fetch(`http://localhost:3000/pokemon-cards/${cardId}/bids`, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                },
-                body: JSON.stringify({
-                    "bidPrice": bidPrice
-                })
-            });
-            console.log(response)
-            if (response.status === 201) {
-                await fetchCardBids()
-                return response;
+    function tryPost() {
+        Swal.fire({
+            iconColor: '#dc3545',
+            title: 'Are you sure?',
+            text: "This bid will be placed!",
+            icon: 'warning',
+            confirmButtonColor: '#ffde00',
+            confirmButtonText: 'Yes, place this bid',
+            showCancelButton: true,
+            cancelButtonText: 'Cancel',
+            cancelButtonColor: '#dc3545'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await fetch(`http://localhost:3000/pokemon-cards/${cardId}/bids`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
+                    body: JSON.stringify({
+                        "bidPrice": bidPrice
+                    })
+                });
+
+                await Swal.fire({
+                    title: 'Placed!',
+                    text: "This bid has been places",
+                    icon: 'success',
+                    confirmButtonColor: '#ffde00',
+                });
+
+                card.bids = fetchCardBids();
             }
-        } catch(error) {
-            console.error(error);
-        }
+        });
     }
+
+    // async function postBid() {
+    //     console.log(bidPrice)
+    //     try {
+    //         const response = await fetch(`http://localhost:3000/pokemon-cards/${cardId}/bids`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-type': 'application/json',
+    //                 'Authorization': 'Bearer ' + localStorage.getItem('token')
+    //             },
+    //             body: JSON.stringify({
+    //                 "bidPrice": bidPrice
+    //             })
+    //         });
+    //         console.log(response)
+    //         if (response.status === 201) {
+    //             await fetchCardBids()
+    //             return response;
+    //         }
+    //     } catch(error) {
+    //         console.error(error);
+    //     }
+    // }
 
     function tryDelete() {
         Swal.fire({
@@ -127,7 +163,7 @@
         <h3>Place bid:</h3>
         <div class=" input-group">
             <input type="text" class="form-control" placeholder="Bid amount" id="bid-amount" bind:value={bidPrice}>
-            <button type="submit" class="btn btn-success text-white" on:click={postBid}>Place bid</button>
+            <button type="submit" class="btn btn-success text-white" on:click={tryPost}>Place bid</button>
 
         </div>
     </div>

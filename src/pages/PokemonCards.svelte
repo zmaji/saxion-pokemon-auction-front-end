@@ -18,6 +18,13 @@
         return result;
     })();
 
+    async function updateCards() {
+        const response = await fetch(`http://localhost:3000/pokemon-cards`);
+        const result = await response.json();
+        items = result;
+        return result;
+    }
+
     async function filterCards(e) {
         const response = await fetch(`http://localhost:3000/pokemon-cards?name=${e.detail.query}`);
         const result = await response.json();
@@ -41,7 +48,7 @@
 
     <div class="row" transition:fade>
         {#each paginatedItems as card}
-            <PokemonCard {card} on:delete={fetchCards}/>
+            <PokemonCard {card} on:deleteCard={updateCards}/>
         {/each}
 
     </div>
