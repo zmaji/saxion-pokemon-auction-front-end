@@ -29,9 +29,11 @@
                 <li class="nav-item">
                     <a class="nav-link {location.href === 'http://localhost:5000/pokemon-cards' ? 'active' : ''}" on:click={() => router.redirect('/pokemon-cards')}>Pokemon cards</a>
                 </li>
+                {#if $rolesStore.roles.indexOf('admin') !== -1}
                 <li class="nav-item">
                     <a class="nav-link {location.href === 'http://localhost:5000/users' ? 'active' : ''}" on:click={() => router.redirect('/users')}>Users</a>
                 </li>
+                {/if}
             </ul>
             <div class="pe-3">
                 <button class="btn btn-outline-secondary mb-2 mb-lg-0" on:click={() => router.redirect('/register')}>Register <i class="fas fa-user-plus"></i></button>
