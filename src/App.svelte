@@ -1,4 +1,8 @@
 <script>
+    import jwt_decode from "jwt-decode";
+    import tokenStore from "./stores/token";
+    import rolesStore from "./stores/roles";
+
     import router from "page";
     import Home from "./pages/Home.svelte";
     import Pokemon from "./pages/PokemonCards.svelte";
@@ -11,17 +15,20 @@
 
     // Middleware
     import isLoggedIn from "./middleware/isLoggedIn";
+    import isAdmin from "./middleware/isAdmin";
 
     // Layout components
     import Nav from "./components/layout/Nav.svelte";
     import Footer from "./components/layout/Footer.svelte";
-    import tokenStore from "./stores/token";
 
     let localToken = localStorage.getItem("token");
     if (localToken && localToken.length) {
         $tokenStore.token = localToken;
+        $rolesStore.roles = jwt_decode(localToken).roles;
+
     } else {
         $tokenStore.token = "";
+        $rolesStore.roles = [];
     }
 
     let page;
@@ -29,16 +36,16 @@
 
     router('/', isLoggedIn, (ctx) => page = Home);
     router('/pokemon-cards', (ctx) => page = Pokemon);
-    router('/pokemon-cards/create', (ctx) => page = PokemonCreate);
+    router('/pokemon-cards/create', isLoggedIn, isAdmin, (ctx) => page = PokemonCreate);
     router('/pokemon-cards/:id', (ctx) => {
         params = ctx.params;
         page = PokemonView;
     });
-    router('/pokemon-cards/:id/edit', (ctx) => {
+    router('/pokemon-cards/:id/edit', isLoggedIn, isAdmin, (ctx) => {
         params = ctx.params;
         page = PokemonEdit;
     });
-    router('/users', (ctx) => page = Users);
+    router('/users', isLoggedIn, isAdmin, (ctx) => page = Users);
     router('/login', (ctx) => page = Login);
     router('/register', (ctx) => page = Register);
 

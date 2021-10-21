@@ -1,9 +1,12 @@
 <script>
     import router from "page";
     import tokenStore from "../../stores/token";
+    import rolesStore from "../../stores/roles";
+
 
     const logout = () => {
         $tokenStore.token = "";
+        $rolesStore.roles = [];
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         router.redirect('/login');

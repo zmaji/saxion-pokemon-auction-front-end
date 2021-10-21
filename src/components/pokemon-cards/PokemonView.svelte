@@ -1,4 +1,5 @@
 <script>
+    import rolesStore from "../../stores/roles";
     import router from "page";
     import {onMount} from "svelte";
     import Bid from "../bids/Bid.svelte";
@@ -111,18 +112,25 @@
         <hr>
     </div>
 
-    <div class="col-12 d-flex justify-content-between">
-        <div class="text-start">
-            <!-- If (loggedIn && admin) statement -->
-            <button type="button" class="btn btn-primary text-white me-2" on:click={() => router.redirect(`/pokemon-cards/${card.cardID}/edit`)}>Edit <i class="fas fa-edit"></i></button>
-            <button type="button" class="btn btn-danger">Delete <i class="fas fa-trash-alt"></i></button>
-        </div>
+    {#if $rolesStore.roles.indexOf('admin') !== -1}
+        <div class="col-12 d-flex justify-content-between">
+            <div class="text-start">
+                <button type="button" class="btn btn-primary text-white me-2" on:click={() => router.redirect(`/pokemon-cards/${card.cardID}/edit`)}>Edit <i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger">Delete <i class="fas fa-trash-alt"></i></button>
+            </div>
 
-        <!-- Endif -->
-        <div class="text-end">
-            <button type="button" class="btn btn-secondary " on:click={() => router.redirect('/pokemon-cards')}>Return <i class="fas fa-times"></i></button>
+            <div class="text-end">
+                <button type="button" class="btn btn-secondary " on:click={() => router.redirect('/pokemon-cards')}>Return <i class="fas fa-times"></i></button>
+            </div>
         </div>
-    </div>
+    {:else}
+        <div class="col-12">
+            <div class="text-end">
+                <button type="button" class="btn btn-secondary " on:click={() => router.redirect('/pokemon-cards')}>Return <i class="fas fa-times"></i></button>
+            </div>
+        </div>
+    {/if}
+
 </div>
 
 <style>

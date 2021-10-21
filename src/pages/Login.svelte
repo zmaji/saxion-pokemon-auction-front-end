@@ -1,8 +1,9 @@
 <script>
     import {useForm, validators, HintGroup, Hint, email, required} from "svelte-use-form";
+    import jwt_decode from "jwt-decode";
     import tokenStore from "../stores/token";
+    import rolesStore from "../stores/roles";
     import router from "page";
-    import App from "../App.svelte";
 
     const form = useForm();
 
@@ -28,6 +29,7 @@
                             localStorage.setItem("token", json.token);
                             localStorage.setItem("user", userEmail);
                             $tokenStore.token = json.token;
+                            $rolesStore.roles = jwt_decode(json.token).roles;
                             return loggedIn = true;
                         } else {
                             return loggedIn = false;

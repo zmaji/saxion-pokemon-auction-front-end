@@ -1,26 +1,22 @@
 <script>
+    import rolesStore from "../stores/roles";
     import { paginate, LightPaginationNav } from 'svelte-paginate';
     import { fade } from 'svelte/transition';
     import PokemonCard from "../components/pokemon-cards/PokemonCard.svelte";
     import router from "page";
-    import {onMount} from "svelte";
     import PokemonSearchBar from "../components/pokemon-cards/PokemonSearchBar.svelte";
 
     let items = [];
     let currentPage = 1;
     let pageSize = 6;
 
-    onMount(async () => {
-        await fetchCards()
-    });
-
-    async function fetchCards() {
+    const fetchCards = (async () => {
         const response = await fetch('http://localhost:3000/pokemon-cards');
         const result = await response.json();
         items = result;
 
         return result;
-    }
+    })();
 
     async function filterCards(e) {
         const response = await fetch(`http://localhost:3000/pokemon-cards?name=${e.detail.query}`);
@@ -37,7 +33,9 @@
         Fetching Cards...
     </div>
 {:then cards}
-    <button class="btn btn-primary text-white" on:click="{() => router.redirect('/pokemon-cards/create')}">Add auction</button>
+    {#if $rolesStore.roles.indexOf('admin') !== -1}
+        <button class="btn btn-primary text-white" on:click="{() => router.redirect('/pokemon-cards/create')}">Add auction</button>
+    {/if}
 
     <PokemonSearchBar on:message={filterCards}/>
 
