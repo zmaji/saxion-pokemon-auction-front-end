@@ -134,7 +134,7 @@
     <h3 class="pt-2 ps-3">Current bids:</h3>
     {#if card.bids && card.bids.length}
         {#each card.bids as bid}
-            <Bid {bid}/>
+            <Bid {bid} on:delete={fetchCardBids}/>
         {/each}
     {:else}
         <div class="col-12 col-md-6 px-3 py-2">
