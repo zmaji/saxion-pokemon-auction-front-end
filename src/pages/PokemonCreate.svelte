@@ -1,6 +1,10 @@
 <script>
     import router from "page";
+    import {useForm, validators, Hint, required} from "svelte-use-form";
     let startingAmount, name, image, availabilityDate, selectedRarity, selectedElements, selectedWeakness, selectedResistance;
+    let requiredMessage = "This is a mandatory field!"
+
+    const form = useForm();
 
     async function postCard() {
         const formData = new FormData();
@@ -65,33 +69,39 @@
         {text: 'Grass', value: 'grass'}
     ];
 </script>
-<form class="row g-3 pb-3">
+
+<form use:form class="row g-3 pb-3">
     <div class="col-12 col-md-8">
         <label for="pokemon-name" class="col-form-label">Pokemon name</label>
-        <input type="text" class="form-control" placeholder="Pokemon name" id="pokemon-name" bind:value="{name}">
+        <input type="text" name="name" class="form-control" placeholder="Pokemon name" id="pokemon-name" bind:value="{name}" use:validators={[required]}>
+        <Hint for="name" on="required">{requiredMessage}</Hint>
     </div>
 
     <div class="col-12 col-md-4">
         <label for="starting-amount" class="col-form-label">Starting amount</label>
-        <input type="text" class="form-control" placeholder="Starting amount" id="starting-amount" bind:value="{startingAmount}">
+        <input type="text" name="starting-amount" class="form-control" placeholder="Starting amount" id="starting-amount" bind:value="{startingAmount}" use:validators={[required]}>
+        <Hint for="starting-amount" on="required">{requiredMessage}</Hint>
     </div>
 
     <div class="col-12 col-md-3">
         <label for="date" class="col-form-label">Available until</label>
-        <input type="date" class="form-control" id="date" bind:value="{availabilityDate}">
+        <input type="date" class="form-control" id="date" bind:value="{availabilityDate}" use:validators={[required]}>
+        <Hint for="starting-amount" on="required">{requiredMessage}</Hint>
     </div>
 
 
     <div class="col-12 col-md-9">
         <label for="formFile" class="col-form-label">Upload an image</label>
-        <input class="form-control" type="file" id="formFile" bind:files="{image}">
+        <input class="form-control" name="image" type="file" id="formFile" bind:files="{image}" use:validators={[required]}>
+        <Hint for="image" on="required">{requiredMessage}</Hint>
     </div>
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Rarity</label>
-        <select class="form-select" bind:value={selectedRarity} id="rarity">
+        <select class="form-select" name="rarity" bind:value={selectedRarity} id="rarity" use:validators={[required]}>
+            <Hint for="rarity" on="required">{requiredMessage}</Hint>
             {#each rarities as rarity}
-                <option value={rarity}>
+                <option value={rarity.value}>
                     {rarity.text}
                 </option>
             {/each}
@@ -100,9 +110,10 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Element</label>
-        <select class="form-select" bind:value={selectedElements} id="element">
+        <select class="form-select" name="element" bind:value={selectedElements} id="element" use:validators={[required]}>
+            <Hint for="element" on="required">{requiredMessage}</Hint>
             {#each elements as element}
-                <option value={element}>
+                <option value={element.value}>
                     {element.text}
                 </option>
             {/each}
@@ -111,9 +122,10 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Weakness</label>
-        <select class="form-select" bind:value={selectedWeakness} id="weakness">
+        <select class="form-select" name="weakness" bind:value={selectedWeakness} id="weakness" use:validators={[required]}>
+            <Hint for="weakness" on="required">{requiredMessage}</Hint>
             {#each weaknesses as weakness}
-                <option value={weakness}>
+                <option value={weakness.value}>
                     {weakness.text}
                 </option>
             {/each}
@@ -122,9 +134,10 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Resistance</label>
-        <select class="form-select" bind:value={selectedResistance} id="resistance">
+        <select class="form-select" name="resistance" bind:value={selectedResistance} id="resistance" use:validators={[required]}>
+            <Hint for="resistance" on="required">{requiredMessage}</Hint>
             {#each resistances as resistance}
-                <option value={resistance}>
+                <option value={resistance.value}>
                     {resistance.text}
                 </option>
             {/each}
