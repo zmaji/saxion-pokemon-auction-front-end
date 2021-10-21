@@ -19,7 +19,10 @@
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await fetch(`http://localhost:3000/pokemon-cards/${card.cardID}`, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
                 });
 
                 await Swal.fire({
