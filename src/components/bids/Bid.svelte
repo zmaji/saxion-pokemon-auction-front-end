@@ -45,9 +45,14 @@
         <div class="d-flex justify-content-between align-items-center">
             <h4 class="mb-0">€ {bid.bidPrice}</h4>
             <small class="">Placed by: {bid.ownerName}</small>
-            <button type="button" class="btn btn-danger" on:click={() => deleteBid()}><i class="fas fa-trash-alt"></i></button>
+            <button type="button" class="btn" on:click={() => deleteBid()}><i class="fas fa-trash-alt color"></i></button>
         </div>
     </div>
 </div>
 
+<style>
+    .color {
+        color: red;
+    }
+</style>
 
