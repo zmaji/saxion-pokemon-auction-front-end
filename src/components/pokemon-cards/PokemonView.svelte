@@ -141,7 +141,6 @@
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Bid amount" id="bid-amount" bind:value={bidPrice}>
             <button type="submit" class="btn btn-success text-white" on:click={postBid}>Place bid</button>
-
         </div>
     </div>
     <h3 class="pt-2 ps-3">Current bids:</h3>

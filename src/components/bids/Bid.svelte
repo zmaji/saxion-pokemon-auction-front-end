@@ -2,6 +2,7 @@
     import { fade } from 'svelte/transition';
     import Swal from "sweetalert2";
     import {createEventDispatcher} from "svelte";
+    import rolesStore from "../../stores/roles";
     export let bid = {};
     export let card = {};
     const dispatch = createEventDispatcher();
@@ -39,13 +40,14 @@
     }
 </script>
 
-
 <div class="col-12 col-md-4 px-3 py-2" transition:fade>
     <div class="{bid.hasWon ? 'alert alert-primary border-2 border-primary' : 'alert alert-secondary'} rounded shadow-sm p-3 mb-0">
         <div class="d-flex justify-content-between align-items-center">
             <h4 class="mb-0">€ {bid.bidPrice}</h4>
             <small class="">Placed by: {bid.ownerName}</small>
+            {#if $rolesStore.roles.indexOf('admin') !== -1}
             <button type="button" class="btn" on:click={() => deleteBid()}><i class="fas fa-trash-alt color"></i></button>
+            {/if}
         </div>
     </div>
 </div>
