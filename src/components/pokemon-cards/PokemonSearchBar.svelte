@@ -5,7 +5,6 @@
     let nameValue = "";
     let rarityValue, elementValue, weaknessValue, resistanceValue
     let finalQuery;
-    // let availableQueries = [];
 
     const rarities = [
         {text: 'Select rarity', value: ''},
@@ -42,26 +41,26 @@
     ];
 
     function submitSearch() {
-        dispatch('message', {
-            nameValue,
-            rarityValue,
-            elementValue,
-            weaknessValue,
-            resistanceValue
-        });
+        const params = { nameValue, rarityValue, elementValue, weaknessValue, resistanceValue };
 
-        // availableQueries.push(nameValue)
-        // availableQueries.push(rarityValue)
-        // availableQueries.push(elementValue)
-        // availableQueries.push(weaknessValue)
-        // availableQueries.push(resistanceValue)
+        dispatch('message', params);
 
-            finalQuery =
-                "name: " + nameValue + ", " +
-                "rarity: " + rarityValue + ", " +
-                "element: " + elementValue + ", " +
-                "weakness: " + weaknessValue + ", " +
-                "resistance: " + resistanceValue;
+        const filtered = [];
+        const references = {
+            nameValue: 'name',
+            elementValue: 'element',
+            rarityValue: 'rarity',
+            weaknessValue: 'weakness',
+            resistanceValue: 'resistance'
+        }
+
+        for (const index in params) {
+            if (params[index]) {
+                filtered.push(`${references[index]}: ${params[index]}`)
+            }
+        }
+
+        finalQuery = filtered.join(', ')
     }
 
     function showFilters() {
