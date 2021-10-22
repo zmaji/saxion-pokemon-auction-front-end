@@ -2,8 +2,10 @@
     import {createEventDispatcher} from "svelte";
 
     const dispatch = createEventDispatcher();
-    let value = "";
+    let nameValue = "";
+    let rarityValue, elementValue, weaknessValue, resistanceValue
     let finalQuery;
+    // let availableQueries = [];
 
     const rarities = [
         {text: 'Select rarity', value: ''},
@@ -41,10 +43,25 @@
 
     function submitSearch() {
         dispatch('message', {
-            query: value
+            nameValue,
+            rarityValue,
+            elementValue,
+            weaknessValue,
+            resistanceValue
         });
 
-        finalQuery = value;
+        // availableQueries.push(nameValue)
+        // availableQueries.push(rarityValue)
+        // availableQueries.push(elementValue)
+        // availableQueries.push(weaknessValue)
+        // availableQueries.push(resistanceValue)
+
+            finalQuery =
+                "name: " + nameValue + ", " +
+                "rarity: " + rarityValue + ", " +
+                "element: " + elementValue + ", " +
+                "weakness: " + weaknessValue + ", " +
+                "resistance: " + resistanceValue;
     }
 
     function showFilters() {
@@ -61,7 +78,7 @@
 <form action="" on:submit|preventDefault={submitSearch} class="py-3">
     <div class="col-md-6">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" name="search" placeholder="Search term" aria-label="Username" aria-describedby="search-addon" bind:value={value}>
+            <input type="text" class="form-control" name="search" placeholder="Search term" aria-label="Username" aria-describedby="search-addon" bind:value={nameValue}>
             <button type="submit" class="input-group-text btn btn-primary text-white px-3 py-2" id="search-addon"><i class="fas fa-search"></i></button>
             <div>
                 <button type="button" class="btn btn-secondary text-white ms-3 px-3 py-2" id="showFilters" on:click={showFilters} >Advanced search</button>
@@ -72,7 +89,7 @@
     <div class="row g-3 pb-3 mt-2" id="filters" style="display: none">
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Rarity</label>
-        <select class="form-select" name="rarity" id="rarity">
+        <select class="form-select" name="rarity" id="rarity" bind:value={rarityValue}>
             {#each rarities as rarity}
                 <option value={rarity.value}>
                     {rarity.text}
@@ -83,8 +100,7 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Element</label>
-        <select class="form-select" name="element" id="element">
-<!--            bind:value={}-->
+        <select class="form-select" name="element" id="element" bind:value={elementValue}>
             {#each elements as element}
                 <option value={element.value}>
                     {element.text}
@@ -95,7 +111,7 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Weakness</label>
-        <select class="form-select" name="weakness" id="weakness">
+        <select class="form-select" name="weakness" id="weakness" bind:value={weaknessValue}>
             {#each weaknesses as weakness}
                 <option value={weakness.value}>
                     {weakness.text}
@@ -106,7 +122,7 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Resistance</label>
-        <select class="form-select" name="resistance" id="resistance">
+        <select class="form-select" name="resistance" id="resistance" bind:value={resistanceValue}>
             {#each resistances as resistance}
                 <option value={resistance.value}>
                     {resistance.text}

@@ -26,7 +26,7 @@
     }
 
     async function filterCards(e) {
-        const response = await fetch(`http://localhost:3000/pokemon-cards?name=${e.detail.query}`);
+        const response = await fetch(`http://localhost:3000/pokemon-cards?name=${e.detail.nameValue}&rarity=${e.detail.rarityValue}&element=${e.detail.elementValue}&weakness=${e.detail.weaknessValue}&resistance=${e.detail.resistanceValue}`);
         const result = await response.json();
         items = result;
         return result;
