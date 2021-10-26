@@ -13,10 +13,10 @@
         formData.append("startingAmount", startingAmount);
         formData.append("image", image[0]);
         formData.append("availabilityDate", availabilityDate);
-        formData.append("rarity", selectedRarity.text);
-        formData.append("element", selectedElements.text);
-        formData.append("weakness", selectedWeakness.text);
-        formData.append("resistance", selectedResistance.text);
+        formData.append("rarity", selectedRarity);
+        formData.append("element", selectedElements);
+        formData.append("weakness", selectedWeakness);
+        formData.append("resistance", selectedResistance);
 
         try {
             const response = await fetch('http://localhost:3000/pokemon-cards', {
@@ -27,6 +27,7 @@
                 body: formData
             });
             if (response.status === 201) {
+                console.log('test')
                 let result = await response.json();
                 window.location.replace(window.location.href.replace("/create", `/${result.cardID}`))
             }
@@ -37,36 +38,36 @@
 
     const rarities = [
         {text: 'Select rarity', value: ''},
-        {text: 'Common', value: 'common'},
-        {text: 'Uncommon', value: 'uncommon'},
-        {text: 'Rare', value: 'rare'}
+        {text: 'Common', value: 'Common'},
+        {text: 'Uncommon', value: 'Uncommon'},
+        {text: 'Rare', value: 'Rare'}
     ];
 
     const elements = [
         {text: 'Select element', value: ''},
-        {text: 'Fire', value: 'fire'},
-        {text: 'Water', value: 'water'},
-        {text: 'Electric', value: 'electric'},
-        {text: 'Ground', value: 'ground'},
-        {text: 'Grass', value: 'grass'}
+        {text: 'Fire', value: 'Fire'},
+        {text: 'Water', value: 'Water'},
+        {text: 'Electric', value: 'Electric'},
+        {text: 'Ground', value: 'Ground'},
+        {text: 'Grass', value: 'Grass'}
     ];
 
     const weaknesses = [
         {text: 'Select weakness', value: ''},
-        {text: 'Fire', value: 'fire'},
-        {text: 'Water', value: 'water'},
-        {text: 'Electric', value: 'electric'},
-        {text: 'Ground', value: 'ground'},
-        {text: 'Grass', value: 'grass'}
+        {text: 'Fire', value: 'Fire'},
+        {text: 'Water', value: 'Water'},
+        {text: 'Electric', value: 'Electric'},
+        {text: 'Ground', value: 'Ground'},
+        {text: 'Grass', value: 'Grass'}
     ];
 
     const resistances = [
         {text: 'Select resistance', value: ''},
-        {text: 'Fire', value: 'fire'},
-        {text: 'Water', value: 'water'},
-        {text: 'Electric', value: 'electric'},
-        {text: 'Ground', value: 'ground'},
-        {text: 'Grass', value: 'grass'}
+        {text: 'Fire', value: 'Fire'},
+        {text: 'Water', value: 'Water'},
+        {text: 'Electric', value: 'Electric'},
+        {text: 'Ground', value: 'Ground'},
+        {text: 'Grass', value: 'Grass'}
     ];
 </script>
 
