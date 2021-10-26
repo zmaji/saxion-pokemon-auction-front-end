@@ -100,49 +100,49 @@
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Rarity</label>
         <select class="form-select" name="rarity" bind:value={selectedRarity} id="rarity" use:validators={[required]}>
-            <Hint for="rarity" on="required">{requiredMessage}</Hint>
             {#each rarities as rarity}
                 <option value={rarity.value}>
                     {rarity.text}
                 </option>
             {/each}
         </select>
+        <Hint for="rarity" on="required">{requiredMessage}</Hint>
     </div>
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Element</label>
         <select class="form-select" name="element" bind:value={selectedElements} id="element" use:validators={[required]}>
-            <Hint for="element" on="required">{requiredMessage}</Hint>
             {#each elements as element}
                 <option value={element.value}>
                     {element.text}
                 </option>
             {/each}
         </select>
+        <Hint for="element" on="required">{requiredMessage}</Hint>
     </div>
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Weakness</label>
         <select class="form-select" name="weakness" bind:value={selectedWeakness} id="weakness" use:validators={[required]}>
-            <Hint for="weakness" on="required">{requiredMessage}</Hint>
             {#each weaknesses as weakness}
                 <option value={weakness.value}>
                     {weakness.text}
                 </option>
             {/each}
         </select>
+        <Hint for="weakness" on="required">{requiredMessage}</Hint>
     </div>
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Resistance</label>
         <select class="form-select" name="resistance" bind:value={selectedResistance} id="resistance" use:validators={[required]}>
-            <Hint for="resistance" on="required">{requiredMessage}</Hint>
             {#each resistances as resistance}
                 <option value={resistance.value}>
                     {resistance.text}
                 </option>
             {/each}
         </select>
+        <Hint for="resistance" on="required">{requiredMessage}</Hint>
     </div>
 </form>
 
