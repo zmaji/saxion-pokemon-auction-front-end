@@ -35,7 +35,7 @@
     let page;
     let params;
 
-    router('/', isLoggedIn, () => page = Home);
+    router('/', () => page = Home);
     router('/bids', isLoggedIn, () => page = UserBids);
     router('/pokemon-cards', () => page = Pokemon);
     router('/pokemon-cards/create', isLoggedIn, isAdmin, () => page = PokemonCreate);

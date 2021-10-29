@@ -3,7 +3,6 @@
     import UserCard from "../components/users/UserCard.svelte";
 
     const fetchUsers = (async () => {
-        console.log('Bearer ' + localStorage.getItem('token'))
         const response = await fetch(`http://localhost:3000/users`, {
             method: 'GET',
             headers: {

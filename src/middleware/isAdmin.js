@@ -8,7 +8,6 @@ export default function (ctx, next) {
         roles = rolesValue;
     });
 
-    console.log(roles);
     if (roles && roles.roles.length) {
         if (roles.roles.indexOf('admin') !== -1) {
             next();

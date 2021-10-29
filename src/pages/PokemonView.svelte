@@ -8,7 +8,7 @@
 
     export let params;
     let card = {};
-    let cardId, bidPrice, highestBid, auctionClosed;
+    let cardId, bidPrice, highestBid, auctionClosed, auctionExpired;
 
     onMount(async () => {
         cardId = parseInt(params.id);
@@ -20,6 +20,7 @@
             highestBid = card.startingAmount;
         }
         auctionClosed = card.bids.filter((bid) => bid.hasWon === true).length > 0;
+        auctionExpired = new Date(card.availabilityDate).getTime() < new Date().getTime();
     });
 
     async function fetchCardBids() {
@@ -145,7 +146,7 @@
             <h6>Available until: </h6>
 
             {#if !auctionClosed}
-                {#if new Date(card.availabilityDate).getTime() > new Date().getTime()}
+                {#if !auctionExpired}
                     <div class="d-flex align-items-center">
                         <i class="fas fa-hourglass-half pe-2"></i>
                         <p class="mb-0" id="CountdownTimer">{card.availabilityDate}</p>
@@ -166,13 +167,15 @@
     </div>
 
     {#if $tokenStore.token && !auctionClosed}
-    <div class="col-12 col-md-6 mb-3">
-        <h3>Place bid:</h3>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Bid amount" id="bid-amount" bind:value={bidPrice}>
-            <button type="submit" class="btn btn-success text-white" on:click={postBid}>Place bid</button>
-        </div>
-    </div>
+        {#if !auctionExpired}
+            <div class="col-12 col-md-6 mb-3">
+                <h3>Place bid:</h3>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Bid amount" id="bid-amount" bind:value={bidPrice}>
+                    <button type="submit" class="btn btn-success text-white" on:click={postBid}>Place bid</button>
+                </div>
+            </div>
+        {/if}
     {/if}
     <h3 class="pt-2 ps-3">Current bids:</h3>
     {#if card.bids && card.bids.length}

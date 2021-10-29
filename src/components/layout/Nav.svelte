@@ -3,7 +3,6 @@
     import tokenStore from "../../stores/token";
     import rolesStore from "../../stores/roles";
 
-
     const logout = () => {
         $tokenStore.token = "";
         $rolesStore.roles = [];

@@ -1,6 +1,5 @@
 <script>
     export let user = {};
-    console.log(user.roles)
 </script>
 
 <div class="col-12 col-md-5 p3 pb-3">

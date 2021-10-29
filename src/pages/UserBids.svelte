@@ -4,11 +4,7 @@
     import { fade } from 'svelte/transition';
     import Bid from "../components/bids/Bid.svelte";
 
-
     let tokenPayload = jwt_decode($tokenStore.token);
-    console.table(tokenPayload);
-
-    console.log(tokenPayload.userID);
     const fetchUserBids = (async () => {
         const response = await fetch(`http://localhost:3000/users/${tokenPayload.userID}/bids`, {
             headers: {
@@ -16,7 +12,6 @@
             }
         });
         const result = await response.json();
-        console.log(result);
         return result;
     })();
 

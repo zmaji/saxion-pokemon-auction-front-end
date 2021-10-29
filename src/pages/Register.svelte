@@ -31,7 +31,6 @@
                 body: formData
             });
 
-            console.log(response)
             if (response.status === 201) {
                 router.redirect('/login')
             }
@@ -39,8 +38,6 @@
             console.error(error);
         }
     }
-
-
 </script>
 
 <form use:form class="pb-3 d-flex justify-content-center">
