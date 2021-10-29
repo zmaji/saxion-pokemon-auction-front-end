@@ -11,6 +11,8 @@
         localStorage.removeItem("user");
         router.redirect('/login');
     };
+
+    let loggedInUser = localStorage.getItem("user");
 </script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-top border-4 border-primary shadow">
@@ -35,14 +37,24 @@
                 </li>
                 {/if}
             </ul>
-            <div class="pe-3">
-                <button class="btn btn-outline-secondary mb-2 mb-lg-0" on:click={() => router.redirect('/register')}>Register <i class="fas fa-user-plus"></i></button>
-            </div>
             {#if $tokenStore.token}
+                <div class="pe-3">
+                    <a class="btn btn-light border-1 text-secondary mb-4 mb-lg-0 text-decoration-none" on:click={() => router.redirect('/bids')}>{loggedInUser} <i class="ms-2 fas fa-user-circle"></i></a>
+                </div>
                 <button class="btn btn-outline-secondary" on:click={logout}>Logout</button>
             {:else}
+                <div class="pe-3">
+                    <button class="btn btn-outline-secondary mb-2 mb-lg-0" on:click={() => router.redirect('/register')}>Register <i class="fas fa-user-plus"></i></button>
+                </div>
                 <button class="btn btn-outline-secondary" on:click={() => router.redirect('/login')}>Login <i class="fas fa-sign-in-alt"></i></button>
             {/if}
         </div>
     </div>
 </nav>
+
+<style>
+    .nav-link:hover {
+        cursor: pointer;
+        text-decoration: none;
+    }
+</style>

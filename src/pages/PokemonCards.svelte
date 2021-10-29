@@ -46,12 +46,18 @@
 
     <PokemonSearchBar on:message={filterCards}/>
 
-    <div class="row" transition:fade>
-        {#each paginatedItems as card}
-            <PokemonCard {card} on:deleteCard={updateCards}/>
-        {/each}
-
-    </div>
+    {#if paginatedItems.length > 0 }
+        <div class="row" transition:fade>
+            {#each paginatedItems as card}
+                <PokemonCard {card} on:deleteCard={updateCards}/>
+            {/each}
+        </div>
+    {:else}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            No cards found...
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {/if}
 
     <LightPaginationNav
             totalItems="{items.length}"

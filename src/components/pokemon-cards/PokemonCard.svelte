@@ -52,7 +52,6 @@
                 </div>
             </div>
             {#if card.image}
-
                 <img src="http://localhost:3000/uploads/{card.image}" alt="{card.name}">
             {/if}
         </div>

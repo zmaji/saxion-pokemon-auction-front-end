@@ -5,9 +5,10 @@
 
     import router from "page";
     import Home from "./pages/Home.svelte";
+    import UserBids from "./pages/UserBids.svelte";
     import Pokemon from "./pages/PokemonCards.svelte";
     import Users from "./pages/Users.svelte";
-    import PokemonView from "./components/pokemon-cards/PokemonView.svelte";
+    import PokemonView from "./pages/PokemonView.svelte";
     import Login from "./pages/Login.svelte";
     import PokemonEdit from "./pages/PokemonEdit.svelte";
     import PokemonCreate from "./pages/PokemonCreate.svelte";
@@ -34,9 +35,10 @@
     let page;
     let params;
 
-    router('/', isLoggedIn, (ctx) => page = Home);
-    router('/pokemon-cards', (ctx) => page = Pokemon);
-    router('/pokemon-cards/create', isLoggedIn, isAdmin, (ctx) => page = PokemonCreate);
+    router('/', isLoggedIn, () => page = Home);
+    router('/bids', isLoggedIn, () => page = UserBids);
+    router('/pokemon-cards', () => page = Pokemon);
+    router('/pokemon-cards/create', isLoggedIn, isAdmin, () => page = PokemonCreate);
     router('/pokemon-cards/:id', (ctx) => {
         params = ctx.params;
         page = PokemonView;
@@ -45,9 +47,9 @@
         params = ctx.params;
         page = PokemonEdit;
     });
-    router('/users', isLoggedIn, isAdmin, (ctx) => page = Users);
-    router('/login', (ctx) => page = Login);
-    router('/register', (ctx) => page = Register);
+    router('/users', isLoggedIn, isAdmin, () => page = Users);
+    router('/login', () => page = Login);
+    router('/register', () => page = Register);
 
     router.start();
 

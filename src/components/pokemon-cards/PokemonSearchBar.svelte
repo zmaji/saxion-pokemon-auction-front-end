@@ -88,7 +88,7 @@
     <div class="row g-3 pb-3 mt-2" id="filters" style="display: none">
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Rarity</label>
-        <select class="form-select" name="rarity" id="rarity" bind:value={rarityValue}>
+        <select class="form-select" name="rarity" id="rarity" bind:value={rarityValue} on:change={submitSearch}>
             {#each rarities as rarity}
                 <option value={rarity.value}>
                     {rarity.text}
@@ -99,7 +99,7 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Element</label>
-        <select class="form-select" name="element" id="element" bind:value={elementValue}>
+        <select class="form-select" name="element" id="element" bind:value={elementValue} on:change={submitSearch}>
             {#each elements as element}
                 <option value={element.value}>
                     {element.text}
@@ -110,7 +110,7 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Weakness</label>
-        <select class="form-select" name="weakness" id="weakness" bind:value={weaknessValue}>
+        <select class="form-select" name="weakness" id="weakness" bind:value={weaknessValue} on:change={submitSearch}>
             {#each weaknesses as weakness}
                 <option value={weakness.value}>
                     {weakness.text}
@@ -121,7 +121,7 @@
 
     <div class="col-12 col-md-6 col-lg-3">
         <label class="mb-1" for="resistance">Resistance</label>
-        <select class="form-select" name="resistance" id="resistance" bind:value={resistanceValue}>
+        <select class="form-select" name="resistance" id="resistance" bind:value={resistanceValue} on:change={submitSearch}>
             {#each resistances as resistance}
                 <option value={resistance.value}>
                     {resistance.text}

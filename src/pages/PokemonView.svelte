@@ -1,20 +1,25 @@
 <script>
-    import rolesStore from "../../stores/roles";
-    import tokenStore from "../../stores/token";
+    import rolesStore from "../stores/roles";
+    import tokenStore from "../stores/token";
     import router from "page";
     import {onMount} from "svelte";
-    import Bid from "../bids/Bid.svelte";
+    import Bid from "../components/bids/Bid.svelte";
     import Swal from "sweetalert2";
 
     export let params;
     let card = {};
-    let cardId, bidPrice;
+    let cardId, bidPrice, highestBid, auctionClosed;
 
     onMount(async () => {
         cardId = parseInt(params.id);
         const response = await fetch(`http://localhost:3000/pokemon-cards/${cardId}`);
         card = await response.json();
-        console.log(card)
+        if (card.bids.length > 0) {
+            highestBid = Math.max.apply(Math, card.bids.map(function(bid) { return bid.bidPrice; }));
+        } else {
+            highestBid = card.startingAmount;
+        }
+        auctionClosed = card.bids.filter((bid) => bid.hasWon === true).length > 0;
     });
 
     async function fetchCardBids() {
@@ -22,6 +27,12 @@
         let result =  await response.json();
         if (result) {
             card.bids = result;
+            if (result.length > 0) {
+                highestBid = Math.max.apply(Math, card.bids.map(function(bid) { return bid.bidPrice; }));
+                auctionClosed = card.bids.filter((bid) => bid.hasWon === true).length > 0;
+            } else {
+                highestBid = card.startingAmount;
+            }
         }
     }
 
@@ -38,23 +49,33 @@
             cancelButtonColor: '#dc3545'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await fetch(`http://localhost:3000/pokemon-cards/${cardId}/bids`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem('token')
-                    },
-                    body: JSON.stringify({
-                        "bidPrice": bidPrice
-                    })
-                });
+                if (parseInt(bidPrice) > parseInt(highestBid)) {
+                    await fetch(`http://localhost:3000/pokemon-cards/${cardId}/bids`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem('token')
+                        },
+                        body: JSON.stringify({
+                            "bidPrice": bidPrice
+                        })
+                    });
 
-                await Swal.fire({
-                    title: 'Placed!',
-                    text: "This bid has been places",
-                    icon: 'success',
-                    confirmButtonColor: '#ffde00',
-                });
+                    await Swal.fire({
+                        title: 'Placed!',
+                        text: "This bid has been places",
+                        icon: 'success',
+                        confirmButtonColor: '#ffde00',
+                    });
+                } else {
+                    await Swal.fire({
+                        title: 'Bid price too low!',
+                        text: "You cannot place a bid that's lower than the other bids",
+                        icon: 'warning',
+                        confirmButtonColor: '#ffde00',
+                    });
+                }
+
                 bidPrice = ''
                 card.bids = fetchCardBids();
             }
@@ -123,21 +144,28 @@
 
             <h6>Available until: </h6>
 
-            {#if new Date(card.availabilityDate).getTime() > new Date().getTime()}
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-hourglass-half pe-2"></i>
-                    <p class="mb-0" id="CountdownTimer">{card.availabilityDate}</p>
-                </div>
+            {#if !auctionClosed}
+                {#if new Date(card.availabilityDate).getTime() > new Date().getTime()}
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-hourglass-half pe-2"></i>
+                        <p class="mb-0" id="CountdownTimer">{card.availabilityDate}</p>
+                    </div>
+                {:else}
+                    <div class="alert alert-danger " role="alert">
+                        <i class="fas fa-calendar-times"></i>
+                        This auction has expired
+                    </div>
+                {/if}
             {:else}
                 <div class="alert alert-danger " role="alert">
                     <i class="fas fa-calendar-times"></i>
-                    This auction has expired
+                    This auction has been closed due to the being a winning bid
                 </div>
             {/if}
         </div>
     </div>
 
-    {#if $tokenStore.token}
+    {#if $tokenStore.token && !auctionClosed}
     <div class="col-12 col-md-6 mb-3">
         <h3>Place bid:</h3>
         <div class="input-group">
@@ -149,7 +177,7 @@
     <h3 class="pt-2 ps-3">Current bids:</h3>
     {#if card.bids && card.bids.length}
         {#each card.bids as bid}
-            <Bid {bid} on:delete={fetchCardBids}/>
+            <Bid {bid} {highestBid} {auctionClosed} on:delete={fetchCardBids}/>
         {/each}
     {:else}
         <div class="col-12 col-md-6 px-3 py-2">

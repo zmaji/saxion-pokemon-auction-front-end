@@ -3,7 +3,7 @@
     import {onMount} from "svelte";
     import {useForm, validators, Hint, required} from "svelte-use-form";
     export let card = {}
-    let requiredMessage = "This is a mandatory field!"
+    let requiredMessage = "This is a mandatory field!";
 
     const form = useForm();
 
