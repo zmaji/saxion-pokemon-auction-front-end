@@ -10,8 +10,6 @@
         localStorage.removeItem("user");
         router.redirect('/login');
     };
-
-    let loggedInUser = localStorage.getItem("user");
 </script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-top border-4 border-primary shadow">
@@ -38,7 +36,7 @@
             </ul>
             {#if $tokenStore.token}
                 <div class="pe-3">
-                    <a class="btn btn-light border-1 text-secondary mb-4 mb-lg-0 text-decoration-none" on:click={() => router.redirect('/bids')}>{loggedInUser} <i class="ms-2 fas fa-user-circle"></i></a>
+                    <a class="btn btn-light border-1 text-secondary mb-4 mb-lg-0 text-decoration-none" on:click={() => router.redirect('/bids')}>{localStorage.getItem("user")} <i class="ms-2 fas fa-user-circle"></i></a>
                 </div>
                 <button class="btn btn-outline-secondary" on:click={logout}>Logout</button>
             {:else}

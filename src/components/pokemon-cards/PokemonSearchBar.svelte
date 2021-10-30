@@ -77,7 +77,7 @@
 <form action="" on:submit|preventDefault={submitSearch} class="py-3">
     <div class="col-md-6">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" name="search" placeholder="Search term" aria-label="Username" aria-describedby="search-addon" bind:value={nameValue}>
+            <input type="text" class="form-control" name="search" placeholder="Search term" aria-label="Username" aria-describedby="search-addon" bind:value={nameValue} on:input={submitSearch}>
             <button type="submit" class="input-group-text btn btn-primary text-white px-3 py-2" id="search-addon"><i class="fas fa-search"></i></button>
             <div>
                 <button type="button" class="btn btn-secondary text-white ms-3 px-3 py-2" id="showFilters" on:click={showFilters} >Advanced search</button>
